@@ -1,0 +1,6 @@
+gcpProject: medable-internal
+gcpCluster: cortex-demo
+
+Deployment:
+  host: api.demo.medable.com
+  replicas: 2

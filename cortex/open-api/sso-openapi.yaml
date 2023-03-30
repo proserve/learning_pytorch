@@ -1,0 +1,420 @@
+openapi: 3.0.3
+info:
+  title: Medable SS0 API
+  description: Medable SSO API enables you to intergrate with Identity Providers (IDPs) using OpenID Connect (OIDC) protocol. It offers endpoints to manage IDP configurations, and login SSO users.
+  version: 2.18.0
+servers:
+  - url: https://api.{environment}.medable.com/{org}/v2
+    variables:
+      environment:
+        default: local
+        enum: 
+          - 'edge'
+          - 'platform'
+          - 'qa'
+          - 'int-dev'
+          - 'test'
+      org:
+        default: 'medable'
+tags:
+  - name: Login
+    description: Login a user with a customer's IDP.
+    externalDocs:
+      description: Learn more about OpenID Connect
+      url: https://openid.net/specs/openid-connect-core-1_0.html
+  - name: CB
+    description: Redirection endpoint, for all orgs, that the OpenID Connect Provider (OP) will send the response to.
+  - name: Callback
+    description: Org specific redirection endpoint that the CB endpoint will redirect the user agent to.
+  - name: IDP Config
+    description: Endpoints for storing and retreiving Identity Provider configurations.
+paths:
+  /sso/oidc/login:
+    get:
+      tags:
+        - Login
+      summary: Redirect to IDP Authorization Server's authorization endpoint.
+      description: Redirects user to Authorization Server for Authentication and Authorization, using OIDC request parameters.
+      operationId: login
+      parameters:
+        - name: idp
+          in: query
+          description: The uuid or name of the IDP config object to be used for the authorization request. If no provided, defaults to the first IDP config instance found.
+          required: false
+          schema:
+            type: string
+        - name: return_to
+          in: query
+          description: The final Medable App destination to redirect the user after they have been authenticated and logged in. If not provided, the callback will return a json response instead of a redirection.
+          example: https://app.uat.medable.com/some_org/v2
+          required: false
+          schema:
+            type: string
+        - name: force_authn
+          in: query
+          description: Force user to authenticate, even if they already have a valid session with the Authorization Server.
+          required: false
+          schema:
+            type: boolean
+        - name: relogin
+          in: query
+          description: Force Medable session refresh.
+          required: false
+          schema:
+            type: boolean
+      responses:
+        '302':
+          description: Redirects to IDP Authorization Server's authorization endpoint.
+  /sso/oidc/cb:
+    get:
+      tags:
+        - CB
+      summary: Endpoint to which IDP redirects user after they authenticate.
+      description: Gets the org from the state parameter and redirects the user agent to the org specific callback endpoint. For web apps, this route is automatically called by the IDP when the user authenticates. For native apps, use the native/callback route.
+      operationId: org redirect
+      parameters:
+        - name: code
+          in: query
+          description: The authorization code returned by the IDP after user authentication.
+          required: true
+          schema:
+            type: string
+        - name: state
+          in: query
+          description: A base64 url encoded object that's used to maintain the state between request and the callback, and mitigate CSRF attacks.
+          required: true
+          schema:
+            type: string
+      responses:
+        '302':
+          description: Redirects to org specific callback endpoint.
+  /sso/oidc/callback:
+    get:
+      tags:
+        - Callback
+      summary: Endpoint to which the CB endpoint redirects the user after they authenticate.
+      description: Gets the identity token of the authenticated user from the IDP, creates a user session for Medable apps, and redirects the user to the final app destination. For web apps, this route is automatically called by the IDP when the user authenticates. For native apps, use the native/callback route.
+      operationId: callback
+      parameters:
+        - name: code
+          in: query
+          description: The authorization code returned by the IDP after user authentication.
+          required: true
+          schema:
+            type: string
+        - name: state
+          in: query
+          description: A base64 url encoded object that's used to maintain the state between request and the callback, and mitigate CSRF attacks.
+          required: true
+          schema:
+            type: string
+      responses:
+        '302':
+          description: Redirects to `return_to` url if provided. If there's an authentication error, the url will include error and error_description parameters.
+        '200':
+          description: Account object.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/Account'
+  /sso/oidc/native/params:
+    get:
+      tags:
+        - Parameters
+      summary: Endpoint native Medable app uses to get IDP configuration.
+      description: Returns idp configuration to be user in establishing authorization request with identity provider.
+      operationId: nativeParams
+      parameters:
+        - name: idp
+          in: query
+          description: The uuid or name of the IDP config object. If not provided, defaults to the native.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: IDP object without clientSecret
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/OIDC_Public'
+  /sso/oidc/native/callback:
+    get:
+      tags:
+        - Callback
+      summary: Endpoint native Medable app uses to complete authorization.
+      description: Gets the identity token of the authenticated user from the IDP, creates a user session for Medable apps, and returns the account object for the authenticated user.
+      operationId: nativeCallback
+      parameters:
+        - name: idp
+          in: query
+          description: The uuid or name of the IDP config object that was used for the authentication request. If not provided, defaults to the first IDP instance found.
+          required: false
+          schema:
+            type: string
+        - name: code_verifier
+          in: query
+          description: A cryptographically random string that was used to generate the `code_challenge` sent to the authorization server. Used to prove the request is coming from the same client that initiated the authentication flow.
+          required: true
+          schema:
+            type: string
+        - name: code
+          in: query
+          description: The authorization code returned by the IDP after user authentication.
+          required: true
+          schema:
+            type: string
+        - name: max_age
+          in: query
+          description: Session duration specified in the authorization request. Should match the same value sent to the authorization server.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Account object
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/Account'
+  /idp:
+    post:
+      tags:
+        - IDP Config
+      summary: Create an IDP configuration object.
+      description: Create an IDP configuration object.
+      operationId: createIdpClient
+      requestBody:
+        description: Requires `name`, `label`, `type`, `issuer`, `clientId`, and `clientSecret`. `redirectUri` is specified for native app flow only. 
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OIDC'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/OIDC'
+    get:
+      tags:
+        - IDP Config
+      summary: List IDP configuration objects.
+      description: Get a list of all IDP configuration object that you have access to.
+      operationId: getIdpClient
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/OIDC'
+  /idps/{id}:
+    get:
+      tags:
+        - IDP Config
+      summary: Get a IDP configuration object by ID.
+      operationId: getIdpClientById
+      parameters:
+        - name: id
+          in: path
+          description: ObjectId of the IDP configuration object
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/OIDC'
+    put:
+      tags:
+          - IDP Config
+      summary: Update a IDP configuration object by ID.
+      operationId: updateIdpClientById
+      parameters:
+        - name: id
+          in: path
+          description: ID of the IDP configuration object
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Updated IDP Client
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OIDC'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/OIDC'
+    delete:
+      tags:
+        - IDP Config
+      summary: Delete a IDP configuration object by ID.
+      operationId: deleteIdpClientById
+      parameters:
+        - name: id
+          in: path
+          description: ID of the IDP configuration object
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  object:
+                    type: string
+                    example: result
+                  data:
+                    type: boolean
+                    example: true
+components:
+  schemas:
+    IDP:
+      type: object
+      required:
+        - name
+        - label
+        - type
+      properties:
+        _id:
+          type: integer
+          example: 123
+          description: automatically generated
+        uuid:
+          type: integer
+          example: 456
+          description: automatically generated
+        name:
+          type: string
+          example: auth0Client
+        label:
+          type: string
+          example: Example Medable Auth0 IDP Client
+        type:
+          type: string
+          example: oidc
+          required:
+            - oidc
+            - saml2
+        authorizationParams:
+          type: array
+          items:
+            type: object
+          example: [{ key: max_age, value: 1000 }]
+    OIDC:
+      allOf:
+        - $ref: '#/components/schemas/IDP'
+        - type: object
+          required:
+            - issuer
+            - clientId
+            - clientSecret
+          properties:
+            issuer:
+              type: string
+              example: https://dev-Od7jD82e.us.auth0.com
+              description: URI identifying the Open Id provider entity.
+            clientId:
+              type: string
+              example: mZpjdGU0gU6MP8DJKpeK
+              description: The unique identifier for the application provided by the IDP.
+            clientSecret:
+              type: string
+              example: FMdzpZ9lhGkHGPunCMfsHnkrN1ggUOttkk5JGODi
+              description: A string used to sign and validate ID Tokens for authentication flows and to gain access to IDP endpoints.
+            forceAuthn:
+              type: boolean
+              example: false
+              description: Set to true to force re-authentication even if there is a valid session with the IDP.
+            redirectUri:
+              type: string
+              example: https://app.uat.medable.com/exampleorg/v2
+    OIDC_Public:
+      allOf:
+        - $ref: '#/components/schemas/IDP'
+        - type: object
+          required:
+            - issuer
+            - clientId
+          properties:
+            issuer:
+              type: string
+              example: https://dev-Od7jD82e.us.auth0.com
+              description: URI identifying the Open Id provider entity.
+            clientId:
+              type: string
+              example: mZpjdGU0gU6MP8DJKpeK
+              description: The unique identifier for the application provided by the IDP.
+            forceAuthn:
+              type: boolean
+              example: false
+              description: Set to true to force re-authentication even if there is a valid session with the IDP.
+            redirectUri:
+              type: string
+              example: https://app.uat.medable.com/exampleorg/v2
+    Account:
+      type: object
+      properties:
+        _id:
+          type: object
+        object:
+          type: string
+          example: account
+        created:
+          type: object
+        access:
+          type: number
+          example: 6
+        accessRoles:
+          type: array
+          items:
+            type: string
+        favorite:
+          type: boolean
+          example: false
+        email:
+          type: string
+          example: example.email@medable.com
+        name:
+          type: object
+          example: { first: 'First', last: 'Last', suffix: 'Suffix', additional: [] }
+        locale:
+          type: string
+          example: en_us
+        state:
+          type: string
+        locked:
+          type: boolean
+          example: false
+        roles:
+          type: array
+          items:
+            type: string
+        inheritedRoles:
+          type: array
+          items:
+            type: string
+        stats:
+          type: object
+          example: { lastLogin: { time: '2022-09-22T19:47:26.023Z' }, ip: '127.0.0.1', lastPasswordReset: '2022-01-18T17:27:04.051Z', shared: false }

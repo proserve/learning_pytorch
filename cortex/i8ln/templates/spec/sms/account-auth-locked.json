@@ -1,0 +1,32 @@
+{
+    "nickname": "Account Unauthorized Access Lock",
+    "summary": "This is sent to the account holder when the account has been locked due to too many authentication failures.",
+    "content": [{
+        "name": "message",
+        "mime": "text/plain",
+        "summary": "Text Message"
+    }],
+    "variables": [{
+        "name": "org",
+        "type": "object",
+        "paths": ["name"],
+        "summary": "Organization"
+    },{
+        "name": "account",
+        "type": "object",
+        "paths": ["name"],
+        "summary": "Account"
+    }, {
+        "name": "attempts",
+        "type": "input",
+        "summary": "Number of attempts"
+    }, {
+        "name": "duration",
+        "type": "input",
+        "summary": "Lock duration, in humanized time."
+    }, {
+        "name": "durationMinutes",
+        "type": "input",
+        "summary": "Lock duration, in minutes."
+    }]
+}

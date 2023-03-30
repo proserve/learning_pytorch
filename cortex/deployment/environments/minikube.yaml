@@ -1,0 +1,11 @@
+imageServer: localhost:5000
+imageProject: registry
+
+secretsDir: ../secrets
+
+Deployment:
+  host: api.minikube.medable.com
+  imagePullPolicy: IfNotPresent
+
+Pod:
+  imagePullPolicy: IfNotPresent

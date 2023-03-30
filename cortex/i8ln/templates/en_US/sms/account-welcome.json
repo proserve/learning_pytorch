@@ -1,0 +1,6 @@
+{
+    "content": [{
+        "name": "message",
+        "data": "Hi {{{account.name.first}}},\n\n Welcome to {{{org.name}}}! Your account has been successfully created.\n\nTo get started, go to {{{urlFor \"login\"}}}"
+    }]
+}

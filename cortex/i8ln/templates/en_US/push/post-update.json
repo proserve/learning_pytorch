@@ -1,0 +1,6 @@
+{
+    "content": [{
+        "name": "message",
+        "data": "{{{fullname post.creator.name}}} posted to a {{{i18n schema.label}}} feed"
+    }]
+}

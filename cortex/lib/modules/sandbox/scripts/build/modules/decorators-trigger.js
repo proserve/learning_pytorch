@@ -1,0 +1,1 @@
+'use strict';module.exports = require('runtime.trigger').Runtime.createDecorator();

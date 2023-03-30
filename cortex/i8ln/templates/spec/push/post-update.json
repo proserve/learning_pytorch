@@ -1,0 +1,23 @@
+{
+    "nickname": "Post Update",
+    "summary": "Post Update",
+    "content": [{
+        "name": "message",
+        "mime": "text/plain",
+        "summary": "Notification Text"
+    }],
+    "variables": [{
+        "name": "org",
+        "type": "object",
+        "paths": ["name"],
+        "summary": "Organization"
+    },{
+        "name": "post",
+        "type": "post",
+        "summary": "The Post"
+    }, {
+        "name": "schema",
+        "type": "schema",
+        "summary": "The post context object schema"
+    }]
+}

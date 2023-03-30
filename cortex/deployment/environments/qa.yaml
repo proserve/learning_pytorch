@@ -1,0 +1,11 @@
+gcpProject: medable-internal
+gcpCluster: cortex-qa
+
+Deployment:
+  host: api.qa.medable.com
+  replicas: 20
+
+HorizontalPodAutoscaler:
+  minReplicas: 20
+  maxReplicas: 40
+  targetCPUUtilizationPercentage: 75

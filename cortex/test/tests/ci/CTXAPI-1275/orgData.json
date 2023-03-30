@@ -1,0 +1,128 @@
+{
+  "object": "org",
+  "state": "enabled",
+  "maintenance": false,
+  "maintenanceMessage": "",
+  "bundleVersion": 0,
+  "locale": "en_US",
+  "registration": {
+    "bypassAccountVerification": false,
+    "allow": false,
+    "allowProviders": false,
+    "manualProviderVerification": false,
+    "invitationRequired": false,
+    "activationRequired": false
+  },
+  "configuration": {
+    "reporting": {
+      "enabled": false
+    },
+    "defaultIdentifierSortOrder": 0,
+    "legacyObjects": false,
+    "legacyAuditHistoryValues": false,
+    "allowWsJwtScopes": false,
+    "localExportStreams": false,
+    "allowBufferSources": false,
+    "defaultParserEngine": "stable",
+    "allowStreamingUploads": false,
+    "events": {
+      "softLimit": 2,
+      "hardLimit": 2,
+      "triggerSoftLimit": true,
+      "triggerHardLimit": true
+    },
+    "sms": {
+      "internalOverCustom": false,
+      "customOverInternal": false,
+      "numbers": []
+    },
+    "urls": {
+      "connection": "",
+      "resetPassword": "",
+      "createPassword": "",
+      "activateAccount": "",
+      "verifyAccount": ""
+    },
+    "canCreateApps": true,
+    "auditLogExpiry": 180,
+    "pendingConnectionExpiry": 7,
+    "maxApps": 10,
+    "maxStorage": 5,
+    "maxAccounts": 500,
+    "allowAccountDeletion": false,
+    "allowOrgRefresh": true,
+    "maxKeysPerApp": 1,
+    "maxRequestSize": "1024kb",
+    "maxUnmanagedInserts": 1000,
+    "maxManagedInserts": 100,
+    "minPasswordScore": 2,
+    "passwordExpiryDays": 0,
+    "passwordValidator": "",
+    "allowSimultaneousLogins": false,
+    "email": {
+      "provider": "Medable",
+      "api_key": "",
+      "fromName": "",
+      "from": "",
+      "replyTo": "",
+      "providerVerifications": [],
+      "registrations": [],
+      "locationBypass": [
+        "ephemeral.admin@example.com"
+      ]
+    },
+    "billing": {
+      "billingId": ""
+    },
+    "researchEnabled": false,
+    "axon": {
+      "enabled": false,
+      "exports": false,
+      "trials": false,
+      "apps": []
+    },
+    "cortexDisabled": false,
+    "minSelectablePasswordScore": 0,
+    "scriptablePasswordValidation": false,
+    "notification": {
+      "maxPayloadSize": 65536,
+      "email": {
+        "allowAttachments": true,
+        "maxAttachmentSize": 20971520
+      },
+      "APNsConfig": {
+        "useToken": false
+      }
+    },
+    "accounts": {
+      "requireMobile": true,
+      "requireEmail": true,
+      "requireUsername": false,
+      "enableEmail": true,
+      "allowEmailUpdate": false,
+      "enableUsername": false,
+      "usernamePattern": "/^[a-z0-9-_\\!#+\\$\\^\\=\\(\\)\\{\\}\\[\\]\\\\.]{6,255}$/i"
+    }
+  },
+  "runtime": {
+    "objects": [],
+    "libraries": [],
+    "triggers": [],
+    "jobs": [],
+    "routes": [],
+    "transforms": [],
+    "envs": [],
+    "events": [],
+    "expressions": [],
+    "pipelines": [],
+    "policies": [],
+    "build": {
+      "sequence": 0,
+      "env": "development",
+      "domain": "local",
+      "endpoint": "api.local.medable.com"
+    }
+  },
+  "serviceAccounts": [],
+  "shared": false
+}

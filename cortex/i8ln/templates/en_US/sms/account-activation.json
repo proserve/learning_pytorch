@@ -1,0 +1,6 @@
+{
+    "content": [{
+        "name": "message",
+        "data": "Hi {{{account.name.first}}},\n\nYou're one step away from completing your {{{org.name}}} signup.\n\nFollow the link below to activate your account:\n\n{{{activation.url}}}"
+    }]
+}

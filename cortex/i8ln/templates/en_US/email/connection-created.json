@@ -1,0 +1,12 @@
+{
+    "content": [{
+        "name": "subject",
+        "data": "You've been connected at {{{org.name}}}"
+    }, {
+        "name": "plain",
+        "data": "Hi {{{account.name.first}}},\n\n You've been connected to a {{{connection.context.object}}} at {{{org.name}}}."
+    }, {
+        "name": "html",
+        "include": "html/connection-created.html"
+    }]
+}

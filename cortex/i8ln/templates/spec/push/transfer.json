@@ -1,0 +1,20 @@
+{
+    "nickname": "Ownership Transfer",
+    "summary": "Ownership Transfer",
+    "content": [{
+        "name": "message",
+        "mime": "text/plain",
+        "summary": "Notification Text"
+    }],
+    "variables": [{
+        "name": "org",
+        "type": "object",
+        "paths": ["name"],
+        "summary": "Organization"
+    },{
+        "name": "transfer",
+        "type": "connection",
+        "paths": ["creator.name"],
+        "summary": "Transfer Invitation"
+    }]
+}

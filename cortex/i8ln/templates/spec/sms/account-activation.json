@@ -1,0 +1,24 @@
+{
+    "nickname": "Account activation with verification link",
+    "summary": "This is sent to activate and verify accounts in orgs where there is manual activation",
+    "content": [{
+        "name": "message",
+        "mime": "text/plain",
+        "summary": "Text Message"
+    }],
+    "variables": [{
+        "name": "org",
+        "type": "object",
+        "paths": ["name"],
+        "summary": "Organization"
+    },{
+        "name": "account",
+        "type": "object",
+        "paths": ["name"],
+        "summary": "Account"
+    },{
+        "name": "activation",
+        "type": "activation",
+        "summary": "Account verification token"
+    }]
+}

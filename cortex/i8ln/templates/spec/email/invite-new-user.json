@@ -1,0 +1,27 @@
+{
+    "nickname": "Invite new user",
+    "summary": "Email to newly invited user with registration link",
+    "content": [{
+        "name": "subject",
+        "mime": "text/plain",
+        "summary": "Email subject"
+    },{
+        "name": "plain",
+        "mime": "text/plain",
+        "summary": "Plain text body"
+    },{
+        "name": "html",
+        "mime": "text/html",
+        "summary": "HTML body"
+    }],
+    "variables": [{
+        "name": "org",
+        "type": "object",
+        "paths": ["name"],
+        "summary": "Organization"
+    },{
+        "name": "connection",
+        "type": "connection",
+        "summary": "Connection Context"
+    }]
+}

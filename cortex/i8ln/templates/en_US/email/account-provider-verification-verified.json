@@ -1,0 +1,12 @@
+{
+    "content": [{
+        "name": "subject",
+        "data": "Provider verification verified for {{{fullname account.name}}} in {{{org.name}}}"
+    }, {
+        "name": "plain",
+        "data": "Provider verification verified for {{{fullname account.name}}} in {{{org.name}}}"
+    }, {
+        "name": "html",
+        "include": "html/account-provider-verification-verified.html"
+    }]
+}

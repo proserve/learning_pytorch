@@ -1,0 +1,407 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: cortex-api-hpa
+  labels:
+    app: cortex
+    tier: api-hpa
+    uuid: $uuid
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: cortex-api
+  minReplicas: "{{or minReplicas 1}}"
+  maxReplicas: "{{or maxReplicas 5}}"
+  targetCPUUtilizationPercentage: "{{or targetCPUUtilizationPercentage 80}}"
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: cortex-api-config
+  namespace: "{{value}}"
+data:
+  config.local.json: "{{value}}"
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: cortex-api-cert
+  namespace: "{{value}}"
+data:
+  tls.pem: "{{value}}"
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: star-cortex-service
+  namespace: "{{value}}"
+data:
+  tls.pem: "{{value}}"
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cortex-api-service-account
+imagePullSecrets:
+- name: container-registry-credentials
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cortex-api-role-binding-view
+  namespace: "{{metadata.namespace}}"
+subjects:
+  - kind: ServiceAccount
+    name: cortex-api-service-account
+    namespace: "{{metadata.namespace}}"
+roleRef:
+  kind: ClusterRole
+  name: view
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cortex-api-profile
+  labels:
+    app: cortex
+    tier: armor-profile
+  namespace: "{{metadata.namespace}}"
+data:
+  cortex-api: |
+
+    include <tunables/global>
+
+    profile cortex-api flags=(attach_disconnected, mediate_deleted) {
+
+      include "/abstractions/cortex-service"
+
+    }
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: cortex-api-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: cortex
+      tier: api
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: cortex
+            matchExpressions:
+              - { key: tier, operator: In, values: [api, lb] }
+      ports:
+        - port: 8443
+    - ports:
+        - port: 443
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: cortex
+            matchExpressions:
+              - { key: tier, operator: In, values: [api, lb] }
+      ports:
+        - port: 8443
+    - to:
+        - podSelector:
+            matchLabels:
+              app: cortex
+            matchExpressions:
+              - {
+                  key: tier,
+                  operator: In,
+                  values: [gut, transpiler, viruscan, ws, transcoder],
+                }
+      ports:
+        - port: 443
+  # ipBlocks specified within config.yamls will be inserted as egress elements
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cortex-api-service
+  namespace: "{{metadata.namespace}}"
+  labels:
+    name: cortex-api-service
+    uuid: $uuid
+spec:
+  type: ClusterIP
+  # disabling the service api creates a headless service.
+  ports:
+    - port: 443
+      name: application
+  selector:
+    app: cortex
+    tier: api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cortex-api
+  labels:
+    app: cortex
+    tier: api
+  namespace: "{{metadata.namespace}}"
+spec:
+  selector:
+    matchLabels:
+      app: cortex
+      tier: api
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: "{{or maxUnavailable 2}}"
+      maxSurge: "{{or maxSurge 1}}"
+  revisionHistoryLimit: "{{or revisionHistoryLimit 2}}"
+  replicas: "{{or replicas 6}}"
+  template:
+    metadata:
+      name: cortex-api
+      labels:
+        app: cortex
+        tier: api
+      annotations:
+        container.apparmor.security.beta.kubernetes.io/cortex-api: '{{or apparmor "unconfined"}}'
+    spec:
+      serviceAccountName: cortex-api-service-account
+      subdomain: api
+      nodeSelector:
+        cloud.google.com/gke-nodepool: "{{nodePool}}"
+      volumes:
+        - name: service-config
+          secret:
+            secretName: cortex-api-config
+        - name: service-cert
+          secret:
+            secretName: star-cortex-service
+        - name: application-cert
+          secret:
+            secretName: '{{or cert.secret "cortex-api-cert"}}'
+      imagePullSecrets:
+          - name: container-registry-credentials
+      containers:
+        - name: cortex-api
+          image: $containerImage
+          readinessProbe:
+            exec:
+              command:
+                - cat
+                - /app/healthy
+            initialDelaySeconds: 1
+            periodSeconds: 1
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 2
+          imagePullPolicy: '{{or imagePullPolicy "Always"}}'
+          volumeMounts:
+            - name: service-config
+              mountPath: /secrets
+              readOnly: true
+            - name: application-cert
+              mountPath: /var/run/secrets/cortex/application-cert
+              readOnly: true
+            - name: service-cert
+              mountPath: /var/run/secrets/cortex/service-cert
+              readOnly: true
+          env:
+            - name: CORTEX_PROJECT_NAME
+              value: "{{gcpProject}}"
+            - name: CORTEX_CLUSTER_NAME
+              value: "{{gcpCluster}}"
+            - name: CORTEX_INSTRUMENTATION_ENABLE
+              value: "true"
+            - name: CORTEX_INSTRUMENTATION_ENABLE_DD_TRACE
+              value: "true"
+            - name: CORTEX_INSTRUMENTATION_ENABLE_GCP_PROFILER
+              value: "false"
+            - name: CORTEX_INSTRUMENTATION_ENABLE_NEW_RELIC_APM
+              value: "true"
+            - name: DD_RUNTIME_METRICS_ENABLED
+              value: "true"
+            - name: container_uuid
+              value: $uuid
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: "metadata.name"
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: "status.podIP"
+            - name: DD_AGENT_HOST
+              valueFrom:
+                fieldRef:
+                  fieldPath: "status.hostIP"
+          command: ["node"]
+          args: [
+              "--max-old-space-size=6144",
+              "./main.js",
+              "--conf=/secrets/config.local.json"
+          ]
+          resources:
+            requests:
+              cpu: '{{or cpuReq "3"}}'
+              memory: '{{or memReq "11Gi"}}'
+# ---
+# # pods for debugging in minikube
+# apiVersion: v1
+# kind: Pod
+# metadata:
+#   name: cortex-api-1
+#   labels:
+#     app: cortex
+#     tier: api
+#   namespace: "{{metadata.namespace}}"
+# spec:
+#   subdomain: api
+#   volumes:
+#   - name: service-config
+#     secret:
+#       secretName: cortex-api-config
+#   - name: service-cert
+#     secret:
+#       secretName: star-cortex-service
+#   - name: application-cert
+#     secret:
+#       secretName: "{{or cert.secret \"cortex-api-cert\"}}"
+#   - name: source-code
+#     hostPath:
+#       path: "/CortexApiSource"
+#       type: Directory
+#   containers:
+#   - name: cortex-api
+#     ports:
+#     - containerPort: 9229
+#       hostPort: 30005
+#     image: $containerImage
+#     readinessProbe:
+#       exec:
+#         command:
+#         - cat
+#         -  /app/healthy
+#       initialDelaySeconds: 1
+#       periodSeconds: 1
+#     livenessProbe:
+#       httpGet:
+#         path: /healthz
+#         port: 8080
+#       initialDelaySeconds: 10
+#     imagePullPolicy: "{{or imagePullPolicy \"Always\"}}"
+#     volumeMounts:
+#     - name: source-code
+#       mountPath: /sourceCode
+#     - name: service-config
+#       mountPath: /secrets
+#       readOnly: true
+#     - name: application-cert
+#       mountPath: /var/run/secrets/cortex/application-cert
+#       readOnly: true
+#     - name: service-cert
+#       mountPath: /var/run/secrets/cortex/service-cert
+#       readOnly: true
+#     env:
+#     - name: container_uuid
+#       value: $uuid
+#     - name: POD_NAME
+#       valueFrom:
+#         fieldRef:
+#           fieldPath: "metadata.name"
+#     - name: POD_IP
+#       valueFrom:
+#         fieldRef:
+#           fieldPath: "status.podIP"
+#     command: ["node"]
+#     args: ["--inspect=0.0.0.0:9229", "--max-old-space-size=1536", "./kube-main.js"]
+#     resources:
+#       requests:
+#         cpu: "100m"
+#         memory: "250Mi"
+# ---
+# # pods for debugging in minikube
+# apiVersion: v1
+# kind: Pod
+# metadata:
+#   name: cortex-api-2
+#   labels:
+#     app: cortex
+#     tier: api
+#   namespace: "{{metadata.namespace}}"
+# spec:
+#   subdomain: api
+#   volumes:
+#   - name: service-config
+#     secret:
+#       secretName: cortex-api-config
+#   - name: service-cert
+#     secret:
+#       secretName: star-cortex-service
+#   - name: application-cert
+#     secret:
+#       secretName: "{{or cert.secret \"cortex-api-cert\"}}"
+#   - name: source-code
+#     hostPath:
+#       path: "/CortexApiSource"
+#       type: Directory
+#   containers:
+#   - name: cortex-api
+#     ports:
+#     - containerPort: 9229
+#       hostPort: 30006
+#     image: $containerImage
+#     readinessProbe:
+#       exec:
+#         command:
+#         - cat
+#         -  /app/healthy
+#       initialDelaySeconds: 1
+#       periodSeconds: 1
+#     livenessProbe:
+#       httpGet:
+#         path: /healthz
+#         port: 8080
+#       initialDelaySeconds: 10
+#     imagePullPolicy: "{{or imagePullPolicy \"Always\"}}"
+#     volumeMounts:
+#     - name: source-code
+#       mountPath: /sourceCode
+#     - name: service-config
+#       mountPath: /secrets
+#       readOnly: true
+#     - name: application-cert
+#       mountPath: /var/run/secrets/cortex/application-cert
+#       readOnly: true
+#     - name: service-cert
+#       mountPath: /var/run/secrets/cortex/service-cert
+#       readOnly: true
+#     env:
+#     - name: container_uuid
+#       value: $uuid
+#     - name: POD_NAME
+#       valueFrom:
+#         fieldRef:
+#           fieldPath: "metadata.name"
+#     - name: POD_IP
+#       valueFrom:
+#         fieldRef:
+#           fieldPath: "status.podIP"
+#     command: ["node"]
+#     args: ["--inspect=0.0.0.0:9229", "--max-old-space-size=1536", "./kube-main.js"]
+#     resources:
+#       requests:
+#         cpu: "100m"
+#         memory: "250Mi"

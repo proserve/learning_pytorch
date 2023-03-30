@@ -1,0 +1,6 @@
+{
+    "content": [{
+        "name": "message",
+        "data": "Hi {{{account.name.first}}},\n\nTo create your password, please go to {{{createPassword.url}}}"
+    }]
+}

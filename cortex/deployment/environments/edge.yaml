@@ -1,0 +1,14 @@
+gcpProject: medable-internal
+gcpCluster: cortex-edge
+imageProject: medable-internal
+
+tagSet: 2.9.9-\d+
+
+Deployment:
+  host: api.edge.medable.com
+  replicas: 10
+
+HorizontalPodAutoscaler:
+  minReplicas: 4
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 75

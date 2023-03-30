@@ -1,0 +1,128 @@
+openapi: 3.0.3
+info:
+  title: Localization
+  description: |-
+    This endpoint will be used to get the translation by locale and by namespace.
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Localization
+  url: https://docs.google.com/document/d/1mPM0HuZi0KFzY2kPN0wnuhY7Lf_AAiz58DedG83p3p4/edit#
+servers:
+  - url: https://api.{environment}.medable.com/{org}/v2
+    variables:
+      environment:
+        default: local
+        enum:
+          - 'edge'
+          - 'platform'
+          - 'qa'
+          - 'int-dev'
+          - 'test'
+      org:
+        default: 'medable'
+tags:
+  - name: Translations
+    description: Translated bundles
+paths:
+  /translations/{locale}:
+    get:
+      tags:
+        - Translations
+      summary: Get translations by locale and namespace
+      description: You can obtain the translations per locale and namespace also allow some other features like pseudo localization applied.
+      operationId: translationsByLocaleNs
+      parameters:
+        - name: locale
+          in: path
+          description: any valid locale e.g. en_US
+          required: true
+          schema:
+            type: string
+        - name: namespaces
+          in: query
+          required: false
+          style: deepObject
+          explode: true
+          schema:
+            type: string
+        - name: pseudo
+          description: Enables pseudo localization
+          in: query
+          required: false
+          style: form
+          schema:
+            type: boolean
+            default: false
+        - name: mode
+          in: query
+          required: false
+          style: form
+          schema:
+            type: string
+            enum:
+              - accented
+              - bidi
+            default: accented
+        - name: limited
+          in: query
+          description: will wrap traslationg with []
+          required: false
+          style: form
+          schema:
+            type: boolean
+            default: false
+        - name: expand
+          in: query
+          description: will expand translation based on the percentage send
+          required: false
+          style: form
+          schema:
+            type: integer
+            default: 0
+        - name: format
+          in: query
+          description: will return translated strings in different formats
+          required: false
+          style: form
+          schema:
+            type: string
+            enum:
+              - json
+              - android
+            default: ''
+
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              example:
+                axon:
+                  object:
+                    account:
+                      label: Account
+                      description: Account Definition Description
+                  template:
+                    email:
+                      axon.c_forgot_password:
+                        title: Forgot Password
+                        message: To reset your password you need to go here {{linkUrl}}
+              schema:
+                $ref: '#/components/schemas/Bundle'
+            application/xml:
+              example: |-
+                <resources>
+                  <string name="axon.object.account.label">Account</string>
+                  <string name="axon.object.account.description">Account Definition Description</string>
+                  <string name="axon.template.email.axon.c_forgot_password.title">Forgot Password</string>
+                  <string name="axon.template.email.axon.c_forgot_password.message">To reset your password you need to go here {{linkUrl}}</string>
+                </resources>
+              schema:
+                $ref: '#/components/schemas/Bundle'
+
+components:
+  schemas:
+    Bundle:
+      type: object
+      xml:
+        name: 'resources'

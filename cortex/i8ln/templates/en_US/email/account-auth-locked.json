@@ -1,0 +1,12 @@
+{
+    "content": [{
+        "name": "subject",
+        "data": "Your {{{org.name}}} account has been locked due to unauthorized access."
+    }, {
+        "name": "plain",
+        "data": "Hi {{{account.name.first}}},\n\nYour account has been locked due to {{{attempts}}} consecutive sign-in failure(s). Your account will be locked {{#if duration}}for the next {{{duration}}}{{/if}}{{#unless duration}}indefinitely{{/unless}}."
+    }, {
+        "name": "html",
+        "include": "html/account-auth-locked.html"
+    }]
+}

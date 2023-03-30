@@ -1,0 +1,13 @@
+export DOCKER_BUILDKIT := "1"
+image := "gcr.io/medable-internal/cortex-api"
+prod_image := "gcr.io/medable-registry/cortex-api"
+tag := "local"
+
+build:
+    docker build . -f ./Dockerfile -t {{image}}:{{tag}} --ssh default
+
+push:
+    docker push --all-tags {{image}}
+
+ci:
+    just tag={{tag}} build && just tag={{tag}} push

@@ -1,0 +1,19 @@
+{
+    "nickname": "Private Org Invitation",
+    "summary": "Message to new user in private org with registration link",
+    "content": [{
+        "name": "message",
+        "mime": "text/plain",
+        "summary": "Text Message"
+    }],
+    "variables": [{
+        "name": "org",
+        "type": "object",
+        "paths": ["name"],
+        "summary": "Organization"
+    },{
+        "name": "connection",
+        "type": "connection",
+        "summary": "Connection Context"
+    }]
+}

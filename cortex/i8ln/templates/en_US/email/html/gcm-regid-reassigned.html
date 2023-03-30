@@ -1,0 +1,11 @@
+{{#extend "layout"}}
+
+    {{#replace "title"}}
+        {{org.name}} device change
+    {{/replace}}
+
+    {{#replace "body"}}
+		Hi {{account.name.first}},<br/><br/>
+		Someone has signed-in on an Android device you have previously used. You won't receive push notifications to that device until the next time you sign-in on it.
+    {{/replace}}
+{{/extend}}

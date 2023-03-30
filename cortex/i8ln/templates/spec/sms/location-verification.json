@@ -1,0 +1,19 @@
+{
+    "nickname": "Location Verification",
+    "summary": "Location verification Text Message",
+    "content": [{
+        "name": "message",
+        "mime": "text/plain",
+        "summary": "Text Message"
+    }],
+    "variables": [{
+        "name": "org",
+        "type": "object",
+        "paths": ["name"],
+        "summary": "Organization"
+    },{
+        "name": "code",
+        "type": "input",
+        "summary": "Verification Code"
+    }]
+}

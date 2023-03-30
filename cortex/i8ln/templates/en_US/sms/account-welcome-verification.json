@@ -1,0 +1,6 @@
+{
+    "content": [{
+        "name": "message",
+        "data": "Hi {{{account.name.first}}},\n\nWelcome to {{{org.name}}}!\n\nConfirm your account at {{{verification.url}}}"
+    }]
+}

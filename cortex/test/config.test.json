@@ -1,0 +1,251 @@
+{
+    "endpoints" : {
+        "service": {
+            "server":{
+                "port": 58888
+            }
+        },
+        "management": {
+            "server":{
+                "port": 58889
+            },
+            "ws": {
+                "server": {
+                    "port": 58891
+                }
+            }
+        },
+        "health": {
+            "server":{
+                "port": 58890
+            }
+        },
+        "proxy": {
+            "enable": false
+        }
+    },
+    "__is_mocha_test__": true,
+    "test": {
+        "s3rver": {
+            "host": "localhost",
+            "port": 4578,
+            "bucket": "test-bucket",
+            "filesRoot": "/tmp/cortex-api/tests/s3"
+        }
+    },
+    "contexts" : {
+        "cacheCustom": true,
+        "maxCached": 1000,
+        "debugCache": true
+    },
+    "logging": {
+        "silent": true,
+        "level": "silly"
+    },
+    "messages" : {
+        "exporter": {
+            "awsReadWait": 1500
+        },
+        "sendQ" : {
+            "writeConcern": 1,
+            "minPoll": 0,
+            "maxPoll": 10
+        },
+        "workerQ" : {
+            "minPoll": 0,
+            "maxPoll": 10,
+            "maxConcurrentMessages": 50,
+            "writeConcern": 1
+        }
+    },
+    "ssl": {
+        "safeCookie" : {
+            "secure": false
+        }
+    },
+    "fingerprint": {
+        "cookieOptions" : {
+            "secure": false
+        }
+    },
+    "sessions": {
+        "authDuration": 900000,
+        "cookie": {
+            "secure": false
+        }
+    },
+    "feeds":{
+        "notifySelf": true
+    },
+    "debug":{
+        "doNotSendSms": true,
+        "doNotSendEmails": true,
+        "doBootstrap": true,
+        "allowCorsOrgProvisioning": true,
+        "logRequestHeaders": true,
+        "readableIndexes": false,
+        "databaseProfiling": false,
+        "crashEmailRecipients": ["james@thesases.com"]
+    },
+    "events":{
+        "minPoll": 100,
+        "maxPoll": 1000,
+        "pollBackOffScalar": 1.5,
+        "maxConcurrentMessages": 10,
+        "readPreference": "primary",
+        "writeConcern": "majority",
+        "enableLimits": false,
+        "defaultSoftLimit": 2,
+        "defaultHardLimit": 2
+    },
+    "liveness": {
+        "file": "/tmp/.cortex-api-test-healthy",
+        "content": "ok"
+    },
+    "sandbox": {
+        "debug": {
+            "enableDebugModule": true,
+            "disableHeartbeat": false,
+            "skipHttpHostValidation": false
+        },
+        "pool": {
+            "initialInstances": 5,
+            "burstInstances": 100,
+            "queueDipTimeout": 50
+        },
+        "limits": {
+            "maxCallouts": 10,
+            "types": {
+                "job": {
+                    "sandboxScriptExecutionTimeoutMs": 60000,
+                    "sandboxMaximumScriptBytecodeOps": 1000000000
+                },
+                "route": {
+                    "sandboxScriptExecutionTimeoutMs": 60000,
+                    "sandboxMaximumScriptBytecodeOps": 1000000000
+                },
+                "trigger": {
+                    "sandboxScriptExecutionTimeoutMs": 60000,
+                    "sandboxMaximumScriptBytecodeOps": 1000000000
+                },
+                "deployment": {
+                    "sandboxScriptExecutionTimeoutMs": 60000,
+                    "sandboxMaximumScriptBytecodeOps": 1000000000
+                },
+                "export": {
+                    "sandboxScriptExecutionTimeoutMs": 60000,
+                    "sandboxMaximumScriptBytecodeOps": 1000000000
+                },
+                "validator": {
+                    "sandboxScriptExecutionTimeoutMs": 60000,
+                    "sandboxMaximumScriptBytecodeOps": 1000000000
+                }
+            }
+        },
+        "mocha": {
+            "http_tls_test_server": {
+                "host": "localhost",
+                "port": "60010",
+                "key": "-----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAKCAQEAy+enA/lQ5v3zefu1e/iXsI2WNHS7MThHPmsNloW6zNTmX9BJ\nuNLWEqZ9U1zvIylQNPSwsSkxwalq+XPNR/IpU6KVtgWfxsTLreMPmQqcHQ82F2RX\nII3ooyoZWd1T7cQtKNK6ZnOP/+UP4X7RWqlP/7RA8OOoohjtcWzj0J8rvr0P24dW\nEg1p67IUXDmK4QpxUZMhuEofLTVqIEh4TO3oMyYbwZ8Qd6lPOEtrbln4rqsG9sld\nv51j5ZoohPzePdZ0As6hewslFrAlaJRt7CIDja1RN6wNU4DzIGNnJcznuuNhy1zX\nxPP/6FMwa3gzQK15bxbAyoqA417p4VlXsbxNMQIDAQABAoIBAAdWIGY+NDD7diUv\nb0o0mZCap4rfoFSXB8kxJN4DlcME7f0Ii36A537oSp4TO+9x7xbYrvrQ1p93Lwgm\nqH4sMlx1/xj7ftIyBnoNL2R8Qz2wbGvPCmt7b6FfRGY9VmW5pz5OxrIk+ktkvHuK\nipHOgbhbjfKc3lZmuzRXjKLW90X3iwM3vWpeXfnkeVYsMkqZZEk8Z/7XHJl0Z52i\nhqE3wJK2MW5JVXzTws3c+Rt+5GbPQnknR5QVQ6ZJeT/X93qD90XDi5JIiF+VAmf+\nKehiG8U1+58ibtU4neEhw5Ur9mHNfAB222AfYVtbKw8XTTsY0IFUu2trnnm0AalW\nKViHqRkCgYEA7yzXy1ZXuUZXInq5GD4vf0BMNhvRjlJZqPmBGOTUADMo/0UJWQDh\nM4c0evldGO7F1eS/eDnvbAKb1x7+bWpkS+Zza8pDN/4F2Wj+wGeF13UJFgO1aMSC\nLolMY1FGhrydPUvJceKwUICd2tbfE+Q9zZUcZkcXfksRPFOWRGDukd8CgYEA2j+m\nIu6K4Jqqt2bfSNw2essRXzU2ZqtqE9/6Xsh3g2q8LEkKjw9KbZd9+N/RPcz1xYtx\nY77pRlILLdzZ0Z1wqOZrIfM2YCoaVr8IxOi06KRI8ehlKsjP9v4Mu2xZsqksG5n5\nCKCbrj1PdCsIQn5N13q9QfX7mSRNUApqaTmtou8CgYB3+eup8X8BzpopDpzI33De\nCXfxcJT3KrIVREuRHECIdSFso8njnsBZI8qcoXgk6KnO+PdfLNjAOrLH/6Era8Iy\nHMDrYkPD06ZFgBjClWubP/c11thqXKDdDTyHWZ7iOb06oUjE2y0MxOfqffzbMpQa\nC2F6oNDVJnzX4Sow1Nr3ywKBgHS8QrLAgMvuLo32mkuwbft0DpCsN7Lm0NBcpuB3\nvWUvfAL79ofal+bSdvDdVmAF9xd4pGfDv6Z7T7tyO5eg7JeK15bLLjR1kK0BdUFN\nbyZYaSPrN+GQk5v6+vhs1fV4Az2oN8njjiG+bXcnZT2brSsqXXygg7i/8BJ138D0\ntulFAoGBAIVeUoBq7VFLMAjyO89pPi278vHP1rQzcFUFmW+CtsaN/aCI1X7bfQ54\nf+CiV5hvbpT+TgupkEZvxkBXIzoFASbC1A7jRkkOGj2nSmwAHw/65l9SRFaGHTw0\nNVu2KELdrle4t5HiDu6CgWJjFXaHbce3979YiGHIhAq/RN6mIR3o\n-----END RSA PRIVATE KEY-----",
+                "cert": "-----BEGIN CERTIFICATE-----\nMIIDQDCCAigCCQC33dFPAaLgWTANBgkqhkiG9w0BAQsFADBrMQswCQYDVQQGEwJV\nUzETMBEGA1UECBMKQ2FsaWZvcm5pYTESMBAGA1UEBxMJUGFsbyBBbHRvMRIwEAYD\nVQQKEwlPdmVybG9yZHMxCzAJBgNVBAsTAklUMRIwEAYDVQQDEwlPdmVybG9hZHMw\nHhcNMTYwNTEyMjIyMzAwWhcNMjYwNTEwMjIyMzAwWjBZMQswCQYDVQQGEwJBVTET\nMBEGA1UECBMKU29tZS1TdGF0ZTEhMB8GA1UEChMYSW50ZXJuZXQgV2lkZ2l0cyBQ\ndHkgTHRkMRIwEAYDVQQDEwlsb2NhbGhvc3QwggEiMA0GCSqGSIb3DQEBAQUAA4IB\nDwAwggEKAoIBAQDL56cD+VDm/fN5+7V7+JewjZY0dLsxOEc+aw2WhbrM1OZf0Em4\n0tYSpn1TXO8jKVA09LCxKTHBqWr5c81H8ilTopW2BZ/GxMut4w+ZCpwdDzYXZFcg\njeijKhlZ3VPtxC0o0rpmc4//5Q/hftFaqU//tEDw46iiGO1xbOPQnyu+vQ/bh1YS\nDWnrshRcOYrhCnFRkyG4Sh8tNWogSHhM7egzJhvBnxB3qU84S2tuWfiuqwb2yV2/\nnWPlmiiE/N491nQCzqF7CyUWsCVolG3sIgONrVE3rA1TgPMgY2clzOe642HLXNfE\n8//oUzBreDNArXlvFsDKioDjXunhWVexvE0xAgMBAAEwDQYJKoZIhvcNAQELBQAD\nggEBAEgIU9GcCH1xWYmkX3Da8u640EaXIY/y7PnL8XlM+B6cET5IrCpcJsq2i1cL\nJ0j2W1JwrDMetUbVTq0NEWjwrxb0SuUGN0BD3vulqmCvph1pCsW8o8vVZCH4yRmk\nyOQoRriMsr8Ix0afWGbpcGKVe8qJpDGZDhwhsjqpFreYoJjoRA6ncxzOPRasxRaU\nsE2/DNkNvAt4rwLF49gX93QkkMdeTTdodOopnobfxmFLW9tOnGEAfSWlqDyoyD1q\na/K3CyJjPzopx7QakTGlaP+brVqXzIYExlZjgtBf8DToPK0SADec5Hb/55DyEgXQ\nzcTxQSvhZ/ASoJkLij0b2MWIQag=\n-----END CERTIFICATE-----",
+                "ca": "-----BEGIN CERTIFICATE-----\nMIIEKjCCAxKgAwIBAgIJAL3vTyhiLzzpMA0GCSqGSIb3DQEBCwUAMGsxCzAJBgNV\nBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRIwEAYDVQQHEwlQYWxvIEFsdG8x\nEjAQBgNVBAoTCU92ZXJsb3JkczELMAkGA1UECxMCSVQxEjAQBgNVBAMTCU92ZXJs\nb2FkczAeFw0xNjA1MTIyMjE0MDBaFw0xOTAzMDIyMjE0MDBaMGsxCzAJBgNVBAYT\nAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRIwEAYDVQQHEwlQYWxvIEFsdG8xEjAQ\nBgNVBAoTCU92ZXJsb3JkczELMAkGA1UECxMCSVQxEjAQBgNVBAMTCU92ZXJsb2Fk\nczCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKTb93sJPf8jP9LOlp4J\nppFYVPwK9R5l4GNuPvHfCYmRwGjre8iWnv/K9+4jK/lOjiHPWcVQP2r3WRugxlkK\nvGtUX8o+DErn0pW/vBBHQm5aEdT0bVAKkp3gsy1s7Hr56zh5ttGmE/Y7RTRHwj/Q\n/kVBFX5n0k6zDGvyjvIHK/KAF+S/VCPRRqS4P8CiljibFcFixNmpWohzG9T7Lu1j\nZ9+pq7m/ZJpb/4/Fco6lOq6hauWA1Hx/E1eiC50lyUEjfyiCrXzfUlW7qXkY22M+\nHkMA4biHX5yYm2kiMspVhbnQ7FGY7efCA5JGxGXqhRoE0+lQagpZt8o4n3DjwwFD\nQ7MCAwEAAaOB0DCBzTAdBgNVHQ4EFgQUtDKBCeW+QNKRwTMWK9xRo9EjtTMwgZ0G\nA1UdIwSBlTCBkoAUtDKBCeW+QNKRwTMWK9xRo9EjtTOhb6RtMGsxCzAJBgNVBAYT\nAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRIwEAYDVQQHEwlQYWxvIEFsdG8xEjAQ\nBgNVBAoTCU92ZXJsb3JkczELMAkGA1UECxMCSVQxEjAQBgNVBAMTCU92ZXJsb2Fk\nc4IJAL3vTyhiLzzpMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAHAH\n8MyTAan1ung3cQj6U+naCGqMi0sLhCAkLhnUdMejQkkU5We8u78VOutxUX9lR6De\nMG1aJnHVsTnouy4pxI6/8X9aD+rakHj5sTmoQL/L7aBqm85jkw8MwPwlO8FdmWj9\ne4ME+nFelshnQnHMjoI/9871F5YOBFymDZl7Lh/8NrYthKOrl9M2OVcvVVx/rtMg\n+X6ZlrVbe3cl1d3JcpeAXzX1l0EcT/wkFi5V6mtcsbi8SB4+tDcJt7wE6BkgiRcf\nsECSs7Sgoj8vG2x3zzeEqfdrSfbZXjhqE7bDYMObGS84xPwYgMz2df8hJCNHUUpE\nmTP1qrcUCYRmDzN+gOI=\n-----END CERTIFICATE-----"
+            }
+        }
+    },
+    "sms": {
+        "from": "+16507794983",
+        "id": "AC81b6a48c5a41793cef5e9ee3f4cb976c",
+        "auth": "ad0ff36143cae0cee9e1dbe322d2b3b9"
+    },
+    "televisit": {
+        "twilio": {
+            "availableRegions": [
+                "gll",
+                "au1",
+                "br1",
+                "de1",
+                "ie1",
+                "in1",
+                "jp1",
+                "sg1",
+                "us1",
+                "us2"
+            ]
+        }
+    },
+    "server": {
+        "matchApiVersion": true,
+        "forceHostRedirect": false,
+        "apiHost":"api.local.medable.com"
+    },
+    "app": {
+        "env": "development",
+        "domain": "local"
+    },
+    "webApp": {
+        "host": "app.local.medable.com"
+    },
+    "databases": {
+        "cortex": {
+            "environments": {
+                "uri":"mongodb://localhost/v28-test",
+                "options": {
+                    "dbName": "v28-test",
+                    "user": null,
+                    "pass": null,
+                    "replicaSet": null,
+                    "auto_reconnect": true,
+                    "authSource": null,
+                    "authMechanism": null,
+                    "ssl": false
+                }
+            }
+        }
+    },
+    "mongo":{
+        "url":"mongodb://localhost/v28-test",
+        "connection": {
+            "user": null,
+            "pass": null,
+            "mongos": null,
+            "replset": null,
+            "server": {
+                "auto_reconnect": true,
+                "ssl": false
+            }
+        }
+    },
+    "services": {
+        "lb": null,
+        "blockchain": null,
+        "api": {
+            "enable": false,
+            "client": {
+                "url": {
+                    "protocol": "http:",
+                    "hostname": "localhost",
+                    "port": 58889
+                },
+                "ca": ""
+            }
+        },
+        "viruscan": {
+            "url": "http://username:password@localhost:18888",
+            "ca": "",
+            "scan_uploads": false
+        },
+        "transpiler": {
+            "url": "http://username:password@localhost:28888",
+            "ca": "",
+            "fallback_enabled": true,
+            "fallback_only": true
+        }
+    },
+    "deploy": {
+        "strictSSL": false
+    },
+    "ftp": {
+        "key": "-----BEGIN RSA PRIVATE KEY-----\nMIIEpQIBAAKCAQEApJOTCkBXjIJMsyX1tfl/GuesQDIE6Yi6h5phvFIlZtFMpGv9\nA6LsQvIIIWPx4EvbRzgQ3uMllQJyfviYJYg/mxyXGLNpmbfNvCESm8YZosZUGSHo\ntUtA69OeD9P8588e9gn/NFdKrszgYj9/tx+yn4klWfgcUchc5U923HUPtL03Ti9s\nATRw6xH8QbeW73uoIuSQTnwXEaQ93xkqfHyfcDRns3N6q5JuBbKOFvaeAoHLKB+w\nJ/rPR45AMLAxerECciSnBfdBPb8vfi/OLKVwdpU66cgygG0Glvawi/5Dp4MA9KEs\nsjPAolaBAimJA/frdenLUUNSgu9zmVB+RAwyKwIDAQABAoIBAEopyoA7IHjMGv48\nI+7eQN4B+ohvQfFvUQdclaCEsCAWP2B03W6vE6LTaMCLRmtaI7WDWW7nk38DvE7l\nfcKkFG20w445A2RnBMo7aSRTcCf/EdTFiBVylQ3wrfDaCcT4fC5JsPyIPbppzs/X\nZ5lBKoBkEDXr7e8YyGv5lEmiYvKB/QgbvWeqD5sPvPa0u0tLFJkTHQbclcSbodAU\na9HN+1KhwDopFe8i3k4qynJC6ZFeGQ5idxQ561KV5Rl706igwBg090LiD2pjllnb\nkUtarIyTovyUtRhf+4R/ZIfDRL4V1RsVcx1wRX5AKHcuyEowusM7sxMP0x0ompFX\n1GMI3ykCgYEA0fqWgJXpWHEJ7VAWehr+IJiWUgxCU6cSVpwJGymWFfueeGq5JKWn\nNxPjNQVACkqDre4RPcz7zKf8XdGPFyfOdV4AL++VTTV5LC62CHnU4LVPEFmzF42k\nanKv2LBTV0PrhtYVWB64mRu3U3POYFnpiQi0dm5GKKpy2GWT7nESW7cCgYEAyKWR\nBLNxqI0Juyt76I0ukjWlKLff7/GKQ1JMrY1uL4IU38KOxLt6OEvoOHVuCtyVlG/z\ngqeLrs4x0QpasY4cmKJEUSgJf+iFhxB1Q3DrNWl/YXCTcH6r5swfB5NXZD372GMx\nr/QhAUblTEyqcYM9UJ0WfLplcyuyJww5II80hS0CgYEAugd2eylVeIN9NgB0SW3M\no3hMBRjTUmV8O7s13hiz3Xn05d43dR5FzOgTrY+fMv7dNqTqJYSLuL9DOKNGUE91\n/ElxhQaPkb3EQr6Hi27UiNhY2bV+k2lrttswq5tb2r5T1juo4U8mYI9LleXNe1Nt\nMXjC2QHNqo2H/evQablHeHUCgYEAi1nR2f32liU9+Ow+ZkiHa6wuRJVPxglvCUqD\nTpXHTN9/N9ib5y59t9OgOHX2Mzz39du6t6c9b+5s0s3qJx6X5bns0KCJ2HfZJPDd\nQDWQZcwbV8Uj4SFYqjZh5pUCQPB7lNFvlNBsi8J9RfyI88U+NFqlX4LlKpPSayQm\nGOLcixECgYEAy8IyKotEZm7il1Hmh4kl7LWqqE9L+kzeqEwRmtVAXi94gwGFoyy6\nqAc0KeyR+/0vsnDDwV3okfYBbbM1+vJEszcddu65kzBLjVhZpoNlcZDCaZPiLUMC\nZEd5+82r6Qaaw6qOAekLhS4GMXSlGxGgojg4Q+VzpH1Y7ZqDwc0Jp1U=\n-----END RSA PRIVATE KEY-----\n",
+        "cert": "-----BEGIN CERTIFICATE-----\nMIICljCCAX4CCQChoDy9/UJYJDANBgkqhkiG9w0BAQsFADANMQswCQYDVQQGEwJV\nUzAeFw0yMjA4MTgwODIzMDFaFw0yMzA4MTMwODIzMDFaMA0xCzAJBgNVBAYTAlVT\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApJOTCkBXjIJMsyX1tfl/\nGuesQDIE6Yi6h5phvFIlZtFMpGv9A6LsQvIIIWPx4EvbRzgQ3uMllQJyfviYJYg/\nmxyXGLNpmbfNvCESm8YZosZUGSHotUtA69OeD9P8588e9gn/NFdKrszgYj9/tx+y\nn4klWfgcUchc5U923HUPtL03Ti9sATRw6xH8QbeW73uoIuSQTnwXEaQ93xkqfHyf\ncDRns3N6q5JuBbKOFvaeAoHLKB+wJ/rPR45AMLAxerECciSnBfdBPb8vfi/OLKVw\ndpU66cgygG0Glvawi/5Dp4MA9KEssjPAolaBAimJA/frdenLUUNSgu9zmVB+RAwy\nKwIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQBkbnms7cy1bDxRD/k1jSmFnt7G6b+C\njVQTcThvZpHjV8TVkeA+wRl2Lql077OwoLQ8sJB41IdiWwVK+efo01WLQqkNy4Qk\ntMY6v6JmlNYcsRVwAKOXC3pZNEDrHHvJmf9mtUbU+/W7qsid2sz3fQU7vkI7Blmg\nNzCUz9KVST3+Ft/dGoZlM3sT5ygdeIYTXsgjQJoomK2BdJNS0N6xer5P0o1+QbCp\n+SXm4yY3ZF4om996vTUJNe2oE2rSIB5I3pTmOg9SnQVSA/hNJZteVNt/jyv9Tj4h\neXa4mOYDZHkHyXikGLFtujWuJ32uleUzOjYhdd+SROIvtl489L3JCJI+\n-----END CERTIFICATE-----\n-----BEGIN RSA PRIVATE KEY-----\nMIIEpQIBAAKCAQEApJOTCkBXjIJMsyX1tfl/GuesQDIE6Yi6h5phvFIlZtFMpGv9\nA6LsQvIIIWPx4EvbRzgQ3uMllQJyfviYJYg/mxyXGLNpmbfNvCESm8YZosZUGSHo\ntUtA69OeD9P8588e9gn/NFdKrszgYj9/tx+yn4klWfgcUchc5U923HUPtL03Ti9s\nATRw6xH8QbeW73uoIuSQTnwXEaQ93xkqfHyfcDRns3N6q5JuBbKOFvaeAoHLKB+w\nJ/rPR45AMLAxerECciSnBfdBPb8vfi/OLKVwdpU66cgygG0Glvawi/5Dp4MA9KEs\nsjPAolaBAimJA/frdenLUUNSgu9zmVB+RAwyKwIDAQABAoIBAEopyoA7IHjMGv48\nI+7eQN4B+ohvQfFvUQdclaCEsCAWP2B03W6vE6LTaMCLRmtaI7WDWW7nk38DvE7l\nfcKkFG20w445A2RnBMo7aSRTcCf/EdTFiBVylQ3wrfDaCcT4fC5JsPyIPbppzs/X\nZ5lBKoBkEDXr7e8YyGv5lEmiYvKB/QgbvWeqD5sPvPa0u0tLFJkTHQbclcSbodAU\na9HN+1KhwDopFe8i3k4qynJC6ZFeGQ5idxQ561KV5Rl706igwBg090LiD2pjllnb\nkUtarIyTovyUtRhf+4R/ZIfDRL4V1RsVcx1wRX5AKHcuyEowusM7sxMP0x0ompFX\n1GMI3ykCgYEA0fqWgJXpWHEJ7VAWehr+IJiWUgxCU6cSVpwJGymWFfueeGq5JKWn\nNxPjNQVACkqDre4RPcz7zKf8XdGPFyfOdV4AL++VTTV5LC62CHnU4LVPEFmzF42k\nanKv2LBTV0PrhtYVWB64mRu3U3POYFnpiQi0dm5GKKpy2GWT7nESW7cCgYEAyKWR\nBLNxqI0Juyt76I0ukjWlKLff7/GKQ1JMrY1uL4IU38KOxLt6OEvoOHVuCtyVlG/z\ngqeLrs4x0QpasY4cmKJEUSgJf+iFhxB1Q3DrNWl/YXCTcH6r5swfB5NXZD372GMx\nr/QhAUblTEyqcYM9UJ0WfLplcyuyJww5II80hS0CgYEAugd2eylVeIN9NgB0SW3M\no3hMBRjTUmV8O7s13hiz3Xn05d43dR5FzOgTrY+fMv7dNqTqJYSLuL9DOKNGUE91\n/ElxhQaPkb3EQr6Hi27UiNhY2bV+k2lrttswq5tb2r5T1juo4U8mYI9LleXNe1Nt\nMXjC2QHNqo2H/evQablHeHUCgYEAi1nR2f32liU9+Ow+ZkiHa6wuRJVPxglvCUqD\nTpXHTN9/N9ib5y59t9OgOHX2Mzz39du6t6c9b+5s0s3qJx6X5bns0KCJ2HfZJPDd\nQDWQZcwbV8Uj4SFYqjZh5pUCQPB7lNFvlNBsi8J9RfyI88U+NFqlX4LlKpPSayQm\nGOLcixECgYEAy8IyKotEZm7il1Hmh4kl7LWqqE9L+kzeqEwRmtVAXi94gwGFoyy6\nqAc0KeyR+/0vsnDDwV3okfYBbbM1+vJEszcddu65kzBLjVhZpoNlcZDCaZPiLUMC\nZEd5+82r6Qaaw6qOAekLhS4GMXSlGxGgojg4Q+VzpH1Y7ZqDwc0Jp1U=\n-----END RSA PRIVATE KEY-----\n"
+    }
+}

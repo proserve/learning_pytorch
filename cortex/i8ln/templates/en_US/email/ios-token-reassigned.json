@@ -1,0 +1,12 @@
+{
+    "content": [{
+        "name": "subject",
+        "data": "{{{org.name}}} device change"
+    }, {
+        "name": "plain",
+        "data": "Hi {{{account.name.first}}},\n\nSomeone has signed-in on an iOS device you have previously used. You won't receive push notifications to that device until the next time you sign-in on it."
+    }, {
+        "name": "html",
+        "include": "html/ios-token-reassigned.html"
+    }]
+}

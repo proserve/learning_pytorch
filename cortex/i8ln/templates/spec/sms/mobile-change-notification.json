@@ -1,0 +1,20 @@
+{
+    "nickname": "Mobile change",
+    "summary": "Changed mobile number",
+    "content": [{
+        "name": "message",
+        "mime": "text/plain",
+        "summary": "Text Message"
+    }],
+    "variables": [{
+        "name": "org",
+        "type": "object",
+        "paths": ["name"],
+        "summary": "Organization"
+    },{
+        "name": "account",
+        "type": "object",
+        "paths": ["name"],
+        "summary": "Account"
+    }]
+}

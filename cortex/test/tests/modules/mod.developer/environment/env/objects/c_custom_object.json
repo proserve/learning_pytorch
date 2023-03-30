@@ -1,0 +1,20 @@
+{
+  "label": "Custom Object",
+  "name": "c_custom_object",
+  "createAcl": ["account.public"],
+  "defaultAcl": ["owner.delete"],
+  "object": "object",
+  "properties": [
+    {
+      "label": "Custom Org Property",
+      "name": "c_custom_org_property",
+      "type": "String",
+      "writable": true
+    },
+    {
+      "label": "c_custom_org_property2",
+      "name": "c_custom_org_property2",
+      "type": "String"
+    }
+  ]
+}

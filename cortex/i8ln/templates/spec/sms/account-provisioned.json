@@ -1,0 +1,24 @@
+{
+    "nickname": "Account Provisioned",
+    "summary": "Account Provisioned Sms",
+    "content": [{
+        "name": "message",
+        "mime": "text/plain",
+        "summary": "Text Message"
+    }],
+    "variables": [{
+        "name": "org",
+        "type": "object",
+        "paths": ["name"],
+        "summary": "Organization"
+    },{
+        "name": "account",
+        "type": "object",
+        "paths": ["name"],
+        "summary": "Account"
+    },{
+        "name": "createPassword",
+        "type": "createPassword",
+        "summary": "Password create token."
+    }]
+}

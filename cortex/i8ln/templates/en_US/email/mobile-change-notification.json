@@ -1,0 +1,12 @@
+{
+    "content": [{
+        "name": "subject",
+        "data": "Your mobile number has changed"
+    }, {
+        "name": "plain",
+        "data": "Hi {{{account.name.first}}},\n\nYour {{{org.name}}} account mobile number has been changed."
+    }, {
+        "name": "html",
+        "include": "html/mobile-change-notification.html"
+    }]
+}

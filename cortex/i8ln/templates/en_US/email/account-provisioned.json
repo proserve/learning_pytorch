@@ -1,0 +1,12 @@
+{
+    "content": [{
+        "name": "subject",
+        "data": "Create your password on {{{org.name}}}"
+    }, {
+        "name": "plain",
+        "data": "Hi {{{account.name.first}}},\n\nTo create your password, please go to {{{createPassword.url}}}"
+    }, {
+        "name": "html",
+        "include": "html/account-provisioned.html"
+    }]
+}

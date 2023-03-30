@@ -1,0 +1,15 @@
+{
+    "nickname": "Email Layout",
+    "summary": "General Email Layout",
+    "content": [{
+        "name": "html",
+        "mime": "text/html",
+        "summary": "HTML body"
+    }],
+    "variables": [{
+        "name": "org",
+        "type": "object",
+        "paths": ["name","website","logo","favicon"],
+        "summary": "Organization"
+    }]
+}

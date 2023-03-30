@@ -1,0 +1,27 @@
+{
+    "nickname": "Comment Update",
+    "summary": "Comment Update",
+    "content": [{
+        "name": "message",
+        "mime": "text/plain",
+        "summary": "Notification Text"
+    }],
+    "variables": [{
+        "name": "org",
+        "type": "object",
+        "paths": ["name"],
+        "summary": "Organization"
+    },{
+        "name": "post",
+        "type": "post",
+        "summary": "The Post"
+    },{
+        "name": "comment",
+        "type": "comment",
+        "summary": "The Comment"
+    }, {
+        "name": "schema",
+        "type": "schema",
+        "summary": "The comment context object schema"
+    }]
+}

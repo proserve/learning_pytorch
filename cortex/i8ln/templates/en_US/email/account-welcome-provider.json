@@ -1,0 +1,12 @@
+{
+    "content": [{
+        "name": "subject",
+        "data": "Welcome to {{{org.name}}}"
+    }, {
+        "name": "plain",
+        "data": "Hi {{{account.name.first}}},\n\n Welcome to {{{org.name}}}! Your account has been successfully created.\n\nTo get started, go to {{{urlFor \"login\"}}}"
+    }, {
+        "name": "html",
+        "include": "html/account-welcome-provider.html"
+    }]
+}

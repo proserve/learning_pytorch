@@ -1,0 +1,12 @@
+gcpProject: medable-cortex
+gcpCluster: cortex-dev-eu1
+
+Deployment:
+  host: api.eu1-dev.medable.com
+  replicas: 6
+
+HorizontalPodAutoscaler:
+  minReplicas: 6
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 75
+

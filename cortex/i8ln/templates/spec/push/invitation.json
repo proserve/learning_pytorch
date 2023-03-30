@@ -1,0 +1,20 @@
+{
+    "nickname": "Connection Request",
+    "summary": "Connection Request",
+    "content": [{
+        "name": "message",
+        "mime": "text/plain",
+        "summary": "Notification Text"
+    }],
+    "variables": [{
+        "name": "org",
+        "type": "object",
+        "paths": ["name"],
+        "summary": "Organization"
+    },{
+        "name": "connection",
+        "type": "connection",
+        "paths": ["creator.name"],
+        "summary": "Connection"
+    }]
+}

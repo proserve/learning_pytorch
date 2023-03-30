@@ -1,0 +1,12 @@
+{
+    "content": [{
+        "name": "subject",
+        "data": "Welcome to {{{org.name}}}"
+    }, {
+        "name": "plain",
+        "data": "Hi {{{account.name.first}}},\n\nWelcome to {{{org.name}}}!\n\nConfirm your email address at {{{verification.url}}}"
+    }, {
+        "name": "html",
+        "include": "html/account-welcome-verification.html"
+    }]
+}

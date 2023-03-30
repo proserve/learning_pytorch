@@ -1,0 +1,12 @@
+gcpProject: medable-internal
+gcpCluster: cortex-int-dev
+imageProject: medable-internal
+
+Deployment:
+  host: api-int-dev.medable.com
+  replicas: 20
+
+HorizontalPodAutoscaler:
+  minReplicas: 20
+  maxReplicas: 40
+  targetCPUUtilizationPercentage: 75

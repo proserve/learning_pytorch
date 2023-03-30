@@ -1,0 +1,6 @@
+{
+    "content": [{
+        "name": "message",
+        "data": "{{{fullname comment.creator.name}}} commented on a post in {{{i18n schema.label}}}"
+    }]
+}

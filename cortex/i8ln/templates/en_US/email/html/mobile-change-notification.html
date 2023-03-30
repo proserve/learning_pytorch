@@ -1,0 +1,10 @@
+{{#extend "layout"}}
+    {{#replace "title"}}
+        Your mobile number has changed
+    {{/replace}}
+
+    {{#replace "body"}}
+		Hi {{account.name.first}},<br/><br/>
+		Your {{org.name}} mobile number has been changed.
+    {{/replace}}
+{{/extend}}

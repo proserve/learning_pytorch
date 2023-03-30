@@ -1,0 +1,829 @@
+{
+    "administration": {
+        "whitelist": [],
+        "blacklist": []
+    },
+    "endpoints" : {
+        "service": {
+            "auth": null,
+            "expose": false
+        },
+        "proxy": {
+            "env": {
+                "APPLICATION_SSL_BIND_OPTIONS": "accept-proxy"
+            }
+        }
+    },
+    "name": "cortex-api",
+    "integrations": {
+        "stripe": {
+            "live": true,
+            "server": {
+                "test": {
+                    "key": "sk_test_U6Ed9wwYotbGmlf8Df6bzLvK"
+                },
+                "live": {
+                    "key": "sk_live_irsZ2kPTe8kPFPu279kua1JN"
+                }
+            }
+        },
+        "tencent": {
+            "push": {
+                "host": "api.tpns.tencent.com"
+            }
+        }
+    },
+    "hub": {
+        "discoveryEnabled": true,
+        "host": "https://api.medable.com/hub",
+        "route": "/routes/env",
+        "strictSSL": true,
+        "apiKey": "",
+        "apiSecret": "",
+        "authDuration": 900,
+        "origins": ["https://console.medable.com", "https::/app.medable.com"]
+    },
+    "node": {
+        "interval": 2000,
+        "ttl": 5000
+    },
+    "ssl": {
+        "safeCookie" : {
+            "signed" : true,
+            "path": "/",
+            "maxAge": 631138519000,
+            "httpOnly": true,
+            "secure": true
+        }
+    },
+    "fingerprint": {
+        "cookieName": "md.fingerprint",
+        "cookieOptions" : {
+            "signed" : true,
+            "secure": true,
+            "path": "/",
+            "maxAge": 631138519000,
+            "httpOnly": true,
+            "sameSite": "none"
+        }
+    },
+    "sessions": {
+        "key": "md.sid",
+        "secret": "shhh! it's 4 s3cr3t!",
+        "proxy": true,
+        "saveUninitialized": true,
+        "resave": true,
+        "duration": 86400,
+        "durationComment": "24 * 60 * 60 : the amount of time in s the session will remain alive",
+        "authDuration": 900,
+        "authDurationComment": "15 * 60 : the amount of time in s until authentications expires",
+        "cookie": {
+            "path": "/",
+            "httpOnly": true,
+            "maxAge": null,
+            "secure": true,
+            "sameSite": "none"
+        }
+    },
+    "deploy": {
+        "apiKey": "ZRFUwTi7bWHaC5rKtxzcNU",
+        "apiSecret": "t49My0uweM4ermyNHYezp6DznNNY6C0tXHauEb5NCfxWOxuQOI854sUzWnbQEWDh",
+        "tokenSecret": "n2f77h86AnM4UfjEVY6x4JXUg9EyCyv9",
+        "strictSSL": true,
+        "allowEdits": false,
+        "defaultAvailability": 0,
+        "sessionDataMaxBytes": 2048,
+        "payloadDataMaxBytes": 2048
+    },
+    "runtime": {
+        "forceParserEngine": null,
+        "useHeavyReader": false,
+        "streamLists": true,
+        "allowCallingAsQuery": true,
+        "recordReaderMetrics": false,
+        "resetReaderMetrics": false
+    },
+    "faults":{
+        "defaultNamespace": "cortex",
+        "stackTraceLimit": 100
+    },
+    "debug":{
+        "allowCursorExplain": false,
+        "activeAsyncTrackingOnStartup": false,
+        "asyncTrackingCaptureStackTraces": false,
+        "measureEventLoopLapOnStartup": false,
+        "dangerous": false,
+        "insecureS3Endpoints": false,
+        "logStackTraces": false,
+        "allowNoCdn": false,
+        "doBootstrap": false,
+        "exposeMongoErrors": false,
+        "allowCorsOrgProvisioning": false,
+        "logRequestHeaders":false,
+        "readableIndexes": false,
+        "readableMeta": false,
+        "readableHist": false,
+        "databaseProfiling":false
+    },
+    "messages" : {
+        "exporter": {
+            "awsReadWait": 5000
+        },
+        "ttlSeconds": 86400,
+        "sendQ" : {
+            "minPoll": 0,
+            "maxPoll": 10000,
+            "maxConcurrentMessages": 10,
+            "timeout": 120000,
+            "priority": 0,
+            "recurPriority": 1,
+            "maxTries": 3,
+            "readPreference": "primary",
+            "writeConcern": "majority"
+        },
+        "workerQ" : {
+            "minPoll": 0,
+            "maxPoll": 10000,
+            "maxConcurrentMessages": 10,
+            "readPreference": "primary",
+            "writeConcern": "majority"
+        }
+    },
+    "events":{
+        "minPoll": 100,
+        "maxPoll": 1000,
+        "pollBackOffScalar": 1.5,
+        "maxConcurrentMessages": 10,
+        "readPreference": "primary",
+        "writeConcern": "majority",
+        "enableLimits": false,
+        "defaultSoftLimit": 80000,
+        "defaultHardLimit": 100000
+    },
+    "sms": {
+        "from":"",
+        "to":"",
+        "id":"twilio account key",
+        "auth":"twilio auth secret",
+        "blockList": ["+15055555555", "+16505555555"]
+    },
+    "televisit": {
+        "twilio":{
+            "allRegions": {
+                "gll": {"name": "Global - Automatic", "videoHost": "global.vss.twilio.com"},
+                "au1": {"name": "Australia", "videoHost": "au1.vss.twilio.com"},
+                "br1": {"name": "Brazil", "videoHost": "br1.vss.twilio.com"},
+                "de1": {"name": "Germany", "videoHost": "de1.vss.twilio.com"},
+                "ie1": {"name": "Ireland", "videoHost": "ie1.vss.twilio.com"},
+                "in1": {"name": "India", "videoHost": "in1.vss.twilio.com"},
+                "jp1": {"name": "Japan", "videoHost": "jp1.vss.twilio.com"},
+                "sg1": {"name": "Singapore", "videoHost": "sg1.vss.twilio.com"},
+                "us1": {"name": "US East Coast (Virginia)", "videoHost": "us1.vss.twilio.com"},
+                "us2": {"clientRegion": "us1", "name": "US West Coast (Oregon)", "videoHost": "us2.vss.twilio.com"}
+            },
+            "availableRegions": ["us1", "us2"],
+            "defaultMaxConcurrentRooms": 1000,
+            "accountSid":"ACxxxxxxxxxx",
+            "accountAuth":"xxxxxxxxxxxx",
+            "apiKey":"SKxxxxxxxxxx",
+            "authToken":"xxxxxxxxxxxx"
+        },
+        "debugRelay": {
+            "client": {
+                "endpoint": "",
+                "enabled": false,
+                "name": "",
+                "strictSSL": true,
+                "apiKey": "",
+                "apiSecret": "",
+                "pollInterval": 1000
+            },
+            "server": {
+                "enabled": false,
+                "apiKey": "",
+                "apiSecret": ""
+            }
+        }
+    },
+    "composition": {
+        "defaultBackground": "000000",
+        "defaultLayout": "horizontal",
+        "layouts": ["horizontal", "vertical", "stack"],
+        "defaultFormat": "video/mp4",
+        "debug": false,
+        "formats": [{
+            "mime": "video/mp4",
+            "extension": "mp4",
+            "options": [
+                {
+                    "key": "-pix_fmt",
+                    "values": ["yuv420p", "yuv422p", "yuv444p", "yuv410p", "yuv411p"],
+                    "default": "yuv420p"
+                },
+                {
+                    "key": "-profile:v",
+                    "values": ["baseline", "main", "high"],
+                    "default": "baseline"
+                },
+                {
+                    "key": "-level",
+                    "values": ["1", "1b", "1.1", "1.2", "1.3", "2.0", "2.1", "2.2", "3.0", "3.1", "3.2", "4.0", "4.1", "4.2", "5", "5.1", "5.2", "6.0", "6.1", "6.2"],
+                    "default": "3.0"
+                },
+                {
+                    "key": "-movflags",
+                    "values": ["+faststart"],
+                    "default": "+faststart"
+                },
+                {
+                    "key": "-preset",
+                    "values": ["ultrafast", "superfast", "veryfast", "faster", "fast", "medium", "slow", "veryslow"],
+                    "default": "medium"
+                }
+            ]
+        }]
+    },
+    "services": {
+        "transcoder": {
+            "url": "https://username:password@cortex-transcoder-service.default.svc.cluster.local",
+            "strictSSL": true,
+            "ca": "./lib/modules/services/medable-ca.crt",
+            "worker": {
+                "maxSimultaneousTranscodings": 10,
+                "minPoll": 1000,
+                "maxPoll": 30000,
+                "pollBackOffScalar": 1.5,
+                "serviceRequestTimeout": 3000,
+                "serviceRetryInterval": 2000,
+                "uploadRequestTimeout": 30000,
+                "maxRetries": 3
+            }
+        },
+        "lb": {
+          "enable": true,
+          "service-name": "cortex-lb-service",
+            "client": {
+                "url": {
+                    "protocol": "https:",
+                    "username": {"$ref":"endpoints.management.auth.username"},
+                    "password": {"$ref":"endpoints.management.auth.password"},
+                    "port": "8443",
+                    "hostname": "cortex-lb-management-service.default.svc.cluster.local",
+                    "timeout": 1000
+                },
+                "strictSSL": true,
+                "ca": "./lib/modules/services/medable-ca.crt"
+            },
+            "watcher": {
+                "reconnect_interval_ms": 120000,
+                "changes_timeout_ms": 0,
+                "url": "https://kubernetes",
+                "namespace": "default",
+                "token": "/run/secrets/kubernetes.io/serviceaccount/token",
+                "ca": "/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+            }
+        },
+        "api": {
+            "enable": true,
+            "service-name": "cortex-api-service",
+            "client": {
+                "url": {
+                    "protocol": "https:",
+                    "username": {"$ref":"endpoints.management.auth.username"},
+                    "password": {"$ref":"endpoints.management.auth.password"},
+                    "port": "8443",
+                    "hostname": "cortex-api-management-service.default.svc.cluster.local",
+                    "timeout": 1000
+                },
+                "strictSSL": true,
+                "ca": "./lib/modules/services/medable-ca.crt"
+            },
+            "watcher": {
+                "reconnect_interval_ms": 120000,
+                "changes_timeout_ms": 0,
+                "url": "https://kubernetes",
+                "namespace": "default",
+                "token": "/run/secrets/kubernetes.io/serviceaccount/token",
+                "ca": "/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+            },
+            "ws": {
+                "enable": false,
+                "client": {
+                    "transport": {
+                        "ca": "./lib/modules/services/medable-ca.crt"
+                    }
+                },
+                "timeout": 30000
+            }
+        },
+        "viruscan": {
+            "url": "https://username:password@cortex-viruscan-service.default.svc.cluster.local",
+            "strictSSL": true,
+            "ca": "./lib/modules/services/medable-ca.crt",
+            "scan_uploads": true,
+            "allow_infected_scans": false,
+            "allow_failed_scans": true
+
+        },
+        "apps": {
+            "url": "https://username:password@cortex-apps-management-service.default.svc.cluster.local:8443",
+            "strictSSL": true,
+            "ca": "./lib/modules/services/medable-ca.crt"
+        },
+        "transpiler": {
+            "url": "https://username:password@cortex-transpiler-service.default.svc.cluster.local",
+            "fallback_enabled": true,
+            "fallback_only": false,
+            "strictSSL": true,
+            "ca": "./lib/modules/services/medable-ca.crt"
+        },
+        "cs": {
+            "url": "https://username:password@looking-glass-service.default.svc.cluster.local",
+            "strictSSL": true,
+            "ca": "./lib/modules/services/medable-ca.crt"
+        },
+        "renderer": {
+            "url": "https://username:password@cortex-renderer-service.default.svc.cluster.local",
+            "strictSSL": true,
+            "ca": "./lib/modules/services/medable-ca.crt"
+        },
+        "blockchain": {
+            "url": "https://username:password@elixir-parity-service.default.svc.cluster.local",
+            "strictSSL": true,
+            "ca": "./lib/modules/services/medable-ca.crt"
+        },
+        "watcher": {
+            "url": "https://username:password@cortex-watcher-service.default.svc.cluster.local",
+            "strictSSL": true,
+            "ca": "./lib/modules/services/medable-ca.crt"
+        }
+    },
+    "transpiler": {
+        "javascript": {
+            "max_code_size": "300kb"
+        }
+    },
+    "transforms": {
+        "maxMemoSize": 512000
+    },
+    "modules": {
+        "runtime": {
+            "operations": {
+                "log_level": ""
+            },
+            "preStop": {
+                "gracePeriodMs": 5000
+            }
+        },
+        "developer": {
+            "import": {
+                "stallTimeoutMs": 30000
+            }
+        },
+        "events": {
+            "scriptSaturationDeferDelayMs": 500
+        },
+        "config": {
+            "maxSize": 512000
+        }
+    },
+    "sandbox": {
+        "debug": {
+            "alwaysDisposeHost": false,
+            "enableSysModule": true,
+            "enableServicesModule": true,
+            "enableDebugModule": false,
+            "disableHeartbeat": false,
+            "enableConsole": false,
+            "skipHttpHostValidation": false
+        },
+        "limits": {
+            "_note0": "these are the defaults included in the org configuration.",
+            "types": {
+                "job": {
+                    "sandboxScriptExecutionTimeoutMs": 10000,
+                    "sandboxMaximumScriptBytecodeOps": 10000000
+                },
+                "route": {
+                    "sandboxScriptExecutionTimeoutMs": 5000,
+                    "sandboxMaximumScriptBytecodeOps": 10000000
+                },
+                "trigger": {
+                    "sandboxScriptExecutionTimeoutMs": 5000,
+                    "sandboxMaximumScriptBytecodeOps": 10000000
+                },
+                "deployment": {
+                    "sandboxScriptExecutionTimeoutMs": 60000,
+                    "sandboxMaximumScriptBytecodeOps": 10000000
+                },
+                "export": {
+                    "sandboxScriptExecutionTimeoutMs": 60000,
+                    "sandboxMaximumScriptBytecodeOps": 10000000
+                },
+                "validator": {
+                    "sandboxScriptExecutionTimeoutMs": 1000,
+                    "sandboxMaximumScriptBytecodeOps": 10000000
+                },
+                "policy": {
+                    "sandboxScriptExecutionTimeoutMs": 1000,
+                    "sandboxMaximumScriptBytecodeOps": 10000000
+                },
+                "transform": {
+                    "sandboxScriptExecutionTimeoutMs": 5000,
+                    "sandboxMaximumScriptBytecodeOps": 10000000
+                },
+                "operation": {
+                    "sandboxScriptExecutionTimeoutMs": 1000,
+                    "sandboxMaximumScriptBytecodeOps": 10000000
+                },
+                "event": {
+                    "sandboxScriptExecutionTimeoutMs": 5000,
+                    "sandboxMaximumScriptBytecodeOps": 10000000
+                }
+            },
+            "sessionStorageMaxBytes": 4096,
+            "sandboxMemoryLimitMB": 20,
+            "enableTimers": false,
+            "processMemoryLimitMB": 40,
+            "sandboxScriptExecutionTimeoutMs": 2000,
+            "sandboxScriptGracePeriodMs": 250,
+            "maxCallouts": 5,
+            "maxCalloutRequestTimeout": 30000,
+            "maxCalloutRequestSize": 524288,
+            "maxCalloutResponseSize": 524288,
+            "maxResponseBufferSize": 262144,
+            "maxJobRunsPerDay": 8640,
+            "minAllowedJobRunsPerDay": 8640,
+            "maxNotifications": 100,
+            "enableNonAccountNotifications": false,
+            "enableValidators": false,
+            "enableApiPolicies": false,
+            "enableViewTransforms": false,
+            "enableCustomSms": false,
+            "maxExecutionDepth": 6,
+            "maxScriptSize": 50000,
+            "scriptsEnabled": false
+        },
+        "pool": {
+            "initialInstances": 100,
+            "burstRate": 5,
+            "burstInstances": 200,
+            "idleRelease": 10000,
+            "queueTimeout": 30000,
+            "maxQueuedRoutes": 100,
+            "routeQueueTimeout": 30000,
+            "minQueueExpiryCheckInterval": 25,
+            "queueDipTimeout": 5,
+            "maxOrgSaturationScalar": 0.8
+        },
+        "zmq": {
+            "workerIpcPrefix": "ipc:///tmp/md_sb_"
+        },
+        "showPodName": true,
+        "cacheNativeJsModules": true,
+        "defaultListLimit": 10,
+        "reaperTimeoutMs": 300000,
+        "enableNonStrictSSL": false,
+        "heartbeatTimeoutMs": 30000,
+        "disposeOnFailedHeartbeat": false,
+        "heartbeatIntervalMs": 10000,
+        "connectionClass": "WorkerHost",
+        "startupTimeoutMs": 10000
+
+    },
+    "app":{
+        "domain": "market",
+        "env":"production",
+        "name":"MedableApi",
+        "title":"MedableApi"
+    },
+    "databases": {
+        "cortex": {
+            "environments": {
+                "options": {
+                    "useFindAndModify": false,
+                    "monitorCommands": true,
+                    "dbName": "medable_v28",
+                    "authSource": "$external",
+                    "authMechanism": "MONGODB-X509",
+                    "useNewUrlParser": true,
+                    "useUnifiedTopology": true,
+                    "appName": { "$ref": "name" },
+                    "autoIndex": false,
+                    "replicaSet": "rs0",
+                    "ssl": true,
+                    "sslValidate": true,
+                    "sslCA": null,
+                    "sslCert": null,
+                    "sslKey": null,
+                    "retryReads": true,
+                    "retryWrites": true
+                }
+            }
+        }
+    },
+    "models": {
+        "orgAppClient": {
+            "corsMaxItems": 100
+        }
+    },
+    "mongo":{
+        "//": "keep until 2.16.0 in order to maintain backwards compat with older versions and allow for deploiyment of secrets without destroying 2.15.8 settings.",
+        "url":"mongodb://v2-db1:27017/medable_v28,mongodb://v2-db4:27017/medable_v28",
+        "app": {
+            "replPingInterval": 1000,
+            "maxTimeout":300000,
+            "retryInterval":1000,
+            "gridCollection": "files"
+        },
+        "connection": {
+            "user": null,
+            "pass": null,
+            "auth": {
+                "authMechanism": "MONGODB-X509"
+            },
+            "server": {
+                "auto_reconnect": true
+            },
+            "mongos" : {
+                "rs_name":"rs0",
+                "read_secondary":false,
+                "ssl": true,
+                "sslValidate": true,
+                "sslCA": ["-----BEGIN CERTIFICATE-----\nMIIEKzCCAxOgAwIBAgIBATANBgkqhkiG9w0BAQUFADBxMQswCQYDVQQGEwJVUzEL\nMAkGA1UECBMCQ0ExEjAQBgNVBAcTCVBhbG8gQWx0bzEVMBMGA1UEChMMTWVkYWJs\nZSBJbmMuMQswCQYDVQQLEwJJVDEdMBsGCSqGSIb3DQEJARYOY2FAbWVkYWJsZS5j\nb20wHhcNMTUwNDExMDAwMDAwWhcNMjUwNDEwMjM1OTU5WjBxMQswCQYDVQQGEwJV\nUzELMAkGA1UECBMCQ0ExEjAQBgNVBAcTCVBhbG8gQWx0bzEVMBMGA1UEChMMTWVk\nYWJsZSBJbmMuMQswCQYDVQQLEwJJVDEdMBsGCSqGSIb3DQEJARYOY2FAbWVkYWJs\nZS5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCQr8LmtCjfpvcl\ns14kqkajlYzgJKMttPvZy94hr/fkopprHMyTAyb8WyTktS4DvVdIq39fLlKSMKEV\ndVO0emH+dJFLm224S+ooegke7WRja/TFd048g5jrUUBauoRyEzV0kzUtodxsj6nq\neacvjY8Qq/2mprAHNS9pQWqLrhFNDCcx9rnB8n+qaNzdxM5Y7KqgS+IqxIkGPGI+\nDRi0h7WTKQwgX9QFN+kpx7E2h58vWpgh7FluDJ0JM0eG4eteyC/mzyOk8F4MBMKD\nwqcMJjEhEjWd4rHEf4yJEIJSO8PxqqrYmV7m4fmNr6JENGyYiQeauJKgwOGp0qir\noEj6nxLvAgMBAAGjgc0wgcowDAYDVR0TBAUwAwEB/zCBgwYDVR0jBHwweqF1pHMw\ncTELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRIwEAYDVQQHEwlQYWxvIEFsdG8x\nFTATBgNVBAoTDE1lZGFibGUgSW5jLjELMAkGA1UECxMCSVQxHTAbBgkqhkiG9w0B\nCQEWDmNhQG1lZGFibGUuY29tggEBMAsGA1UdDwQEAwIBljAnBgNVHSUEIDAeBggr\nBgEFBQcDAQYIKwYBBQUHAwIGCCsGAQUFBwMJMA0GCSqGSIb3DQEBBQUAA4IBAQA0\nhgjidHprnYypY1nh3PCn7BATyI5QE5kjYSnmEJ4RWHHU58y7A4A3JmGQYjy5ePJ2\nW2gpF/MKWRoh1xcHM9ZnUQWpIXySimPI5oGstVVQAtmMU/ksOxvxOMGpEtLrXjfz\n3fbkrUDZkNG5UpDcp5NjxLTm33Rzu8GTkq9ypG6lQ7/Gi3VRoPSYoDvxzQ6XdlfM\n3G1Zdfdh7+UgjuELonGtHdZM4+1OUm16Trzptxo9ptAoH8bkBaRJDzv1CRaMirYA\n08KKrQRSUQ9s/gevJSmpeFPcJGkv86Coxo0jpKZILygdPDeL99MpB2liAiZTKn9J\nftUwmbMnjZHt+Ktz5RZz\n-----END CERTIFICATE-----"],
+                "sslCert": null,
+                "sslKey": null
+            },
+            "replset" : {
+                "rs_name":"rs0",
+                "read_secondary":false,
+                "ssl": true,
+                "sslValidate": true,
+                "sslCA": ["-----BEGIN CERTIFICATE-----\nMIIEKzCCAxOgAwIBAgIBATANBgkqhkiG9w0BAQUFADBxMQswCQYDVQQGEwJVUzEL\nMAkGA1UECBMCQ0ExEjAQBgNVBAcTCVBhbG8gQWx0bzEVMBMGA1UEChMMTWVkYWJs\nZSBJbmMuMQswCQYDVQQLEwJJVDEdMBsGCSqGSIb3DQEJARYOY2FAbWVkYWJsZS5j\nb20wHhcNMTUwNDExMDAwMDAwWhcNMjUwNDEwMjM1OTU5WjBxMQswCQYDVQQGEwJV\nUzELMAkGA1UECBMCQ0ExEjAQBgNVBAcTCVBhbG8gQWx0bzEVMBMGA1UEChMMTWVk\nYWJsZSBJbmMuMQswCQYDVQQLEwJJVDEdMBsGCSqGSIb3DQEJARYOY2FAbWVkYWJs\nZS5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCQr8LmtCjfpvcl\ns14kqkajlYzgJKMttPvZy94hr/fkopprHMyTAyb8WyTktS4DvVdIq39fLlKSMKEV\ndVO0emH+dJFLm224S+ooegke7WRja/TFd048g5jrUUBauoRyEzV0kzUtodxsj6nq\neacvjY8Qq/2mprAHNS9pQWqLrhFNDCcx9rnB8n+qaNzdxM5Y7KqgS+IqxIkGPGI+\nDRi0h7WTKQwgX9QFN+kpx7E2h58vWpgh7FluDJ0JM0eG4eteyC/mzyOk8F4MBMKD\nwqcMJjEhEjWd4rHEf4yJEIJSO8PxqqrYmV7m4fmNr6JENGyYiQeauJKgwOGp0qir\noEj6nxLvAgMBAAGjgc0wgcowDAYDVR0TBAUwAwEB/zCBgwYDVR0jBHwweqF1pHMw\ncTELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRIwEAYDVQQHEwlQYWxvIEFsdG8x\nFTATBgNVBAoTDE1lZGFibGUgSW5jLjELMAkGA1UECxMCSVQxHTAbBgkqhkiG9w0B\nCQEWDmNhQG1lZGFibGUuY29tggEBMAsGA1UdDwQEAwIBljAnBgNVHSUEIDAeBggr\nBgEFBQcDAQYIKwYBBQUHAwIGCCsGAQUFBwMJMA0GCSqGSIb3DQEBBQUAA4IBAQA0\nhgjidHprnYypY1nh3PCn7BATyI5QE5kjYSnmEJ4RWHHU58y7A4A3JmGQYjy5ePJ2\nW2gpF/MKWRoh1xcHM9ZnUQWpIXySimPI5oGstVVQAtmMU/ksOxvxOMGpEtLrXjfz\n3fbkrUDZkNG5UpDcp5NjxLTm33Rzu8GTkq9ypG6lQ7/Gi3VRoPSYoDvxzQ6XdlfM\n3G1Zdfdh7+UgjuELonGtHdZM4+1OUm16Trzptxo9ptAoH8bkBaRJDzv1CRaMirYA\n08KKrQRSUQ9s/gevJSmpeFPcJGkv86Coxo0jpKZILygdPDeL99MpB2liAiZTKn9J\nftUwmbMnjZHt+Ktz5RZz\n-----END CERTIFICATE-----"],
+                "sslCert": null,
+                "sslKey": null
+            }
+        }
+    },
+    "server":{
+        "matchApiVersion": true,
+        "proxyProtocolHeader": "X-Forwarded-For",
+        "domain":"medable.com",
+        "https":true,
+        "forceHostRedirect":true,
+        "allowVariantHosts": true,
+        "apiHost":"api.medable.com",
+        "adjustableHeaders": ["medable-client-key", "medable-client-signature", "medable-client-timestamp", "medable-client-nonce"]
+    },
+    "webApp": {
+        "host": "app.medable.com",
+        "https": true,
+        "apiKey": "MedableWebAppClientKey",
+        "clientId": "4d656461626c655765624170"
+    },
+    "appsDashboard": {
+      "host": "apps-dashboard.medable.com",
+      "https": true,
+      "apiKey": "MedableAppsDashboardClientKey",
+      "clientId": "63f7cd133e4394eb2a080d0e"
+    },
+    "requests":{
+        "limit":"1024kb"
+    },
+    "exports": {
+        "defaultTtlDays": 7,
+        "maxTtlDays": 365
+    },
+    "uploads":{
+        "defaultMaxSize": 10485760,
+        "upperMaxSize": 5e+9,
+        "tmp":"/tmp/.cortex-api/uploads/tmp",
+        "files":"/tmp/.cortex-api/uploads/files",
+        "allowed":{
+            "conversation":["image/jpeg","image/png","image/gif"],
+            "account":["image/jpeg","image/png","image/gif"]
+        },
+        "s3":{
+            "accessKeyId":"",
+            "secretAccessKey":"",
+            "bucket":"medable-v2-files",
+            "logs":"medable-v2-logs",
+            "logPrefix": "s3-logs/",
+            "region": "us-east-1",
+            "uploadBucket": "medable-v2-uploads",
+            "uploadExpiry": 900,
+            "uploadRegion": "us-east-1",
+            "readUrlExpiry": 900,
+            "public": {
+                "bucket": "medable-public-prod",
+                "region": "us-west-1"
+            }
+        }
+    },
+    "callbacks":{
+        "tokenLength":32,
+        "smsLength":6,
+        "smsTimeoutTolerance":5000,
+        "smsExpiry":600000,
+        "smsRetries": 3,
+        "smsRetryStaticDelay": 1000,
+        "smsRetryBaseBackoffDelay": 100,
+        "defaultExpiryMs":86400000
+    },
+    "connections":{
+        "tokenLength":32,
+        "batchSize": 250
+    },
+    "auth":{
+        "maxPasswordLength": 50,
+        "passwordResetTokenExpiryMs":864000000
+    },
+    "locale":{
+        "defaultLocale":"en_US",
+        "valid": "af,af_NA,af_ZA,agq,agq_CM,ak,ak_GH,am,am_ET,ar,ar_001,ar_AE,ar_BH,ar_DJ,ar_DZ,ar_EG,ar_EH,ar_ER,ar_IL,ar_IQ,ar_JO,ar_KM,ar_KW,ar_LB,ar_LY,ar_MA,ar_MR,ar_OM,ar_PS,ar_QA,ar_SA,ar_SD,ar_SO,ar_SS,ar_SY,ar_TD,ar_TN,ar_YE,as,as_IN,asa,asa_TZ,az,az_Cyrl,az_Cyrl_AZ,az_Latn,az_Latn_AZ,bas,bas_CM,be,be_BY,bem,bem_ZM,bez,bez_TZ,bg,bg_BG,bm,bm_Latn,bm_Latn_ML,bm_ML,bn,bn_BD,bn_IN,bo,bo_CN,bo_IN,br,br_FR,brx,brx_IN,bs,bs_BA,bs_Cyrl,bs_Cyrl_BA,bs_Latn,bs_Latn_BA,ca,ca_AD,ca_ES,ca_FR,ca_IT,ceb_PH,cgg,cgg_UG,chr,chr_US,ckb,ckb_IQ,ckb_IR,cs,cs_CZ,cy,cy_GB,da,da_DK,da_GL,dav,dav_KE,de,de_AT,de_BE,de_CH,de_DE,de_LI,de_LU,dje,dje_NE,dsb,dsb_DE,dua,dua_CM,dyo,dyo_SN,dz,dz_BT,ebu,ebu_KE,ee,ee_GH,ee_TG,el,el_CY,el_GR,en,en_001,en_150,en_AD,en_AG,en_AI,en_AL,en_AS,en_AT,en_AU,en_BA,en_BB,en_BE,en_BM,en_BS,en_BW,en_BZ,en_CA,en_CC,en_CH,en_CK,en_CM,en_CX,en_CY,en_CZ,en_DE,en_DG,en_DK,en_DM,en_EE,en_ER,en_ES,en_FI,en_FJ,en_FK,en_FM,en_FR,en_GB,en_GD,en_GG,en_GH,en_GI,en_GM,en_GR,en_GU,en_GY,en_HK,en_HR,en_HU,en_IE,en_IL,en_IM,en_IN,en_IO,en_IS,en_IT,en_JE,en_JM,en_KE,en_KI,en_KN,en_KY,en_LC,en_LR,en_LS,en_LT,en_LU,en_LV,en_ME,en_MG,en_MH,en_MO,en_MP,en_MS,en_MT,en_MU,en_MW,en_MY,en_NA,en_NF,en_NG,en_NL,en_NO,en_NR,en_NU,en_NZ,en_PG,en_PH,en_PK,en_PL,en_PN,en_PR,en_PT,en_PW,en_RO,en_RU,en_RW,en_SB,en_SC,en_SD,en_SE,en_SG,en_SH,en_SI,en_SK,en_SL,en_SS,en_SX,en_SZ,en_TC,en_TK,en_TO,en_TR,en_TT,en_TV,en_TZ,en_UG,en_UM,en_US,en_US_POSIX,en_VC,en_VG,en_VI,en_VU,en_WS,en_ZA,en_ZM,en_ZW,eo,es,es_419,es_AR,es_BO,es_CL,es_CO,es_CR,es_CU,es_DO,es_EA,es_EC,es_ES,es_GQ,es_GT,es_HN,es_IC,es_MX,es_NI,es_PA,es_PE,es_PH,es_PR,es_PY,es_SV,es_US,es_UY,es_VE,et,et_EE,eu,eu_ES,ewo,ewo_CM,fa,fa_AF,fa_IR,ff,ff_CM,ff_GN,ff_MR,ff_SN,fi,fi_FI,fil,fil_PH,fo,fo_FO,fr,fr_BE,fr_BF,fr_BI,fr_BJ,fr_BL,fr_CA,fr_CD,fr_CF,fr_CG,fr_CH,fr_CI,fr_CM,fr_DJ,fr_DZ,fr_FR,fr_GA,fr_GF,fr_GN,fr_GP,fr_GQ,fr_HT,fr_KM,fr_LU,fr_MA,fr_MC,fr_MF,fr_MG,fr_ML,fr_MQ,fr_MR,fr_MU,fr_NC,fr_NE,fr_PF,fr_PM,fr_RE,fr_RW,fr_SC,fr_SN,fr_SY,fr_TD,fr_TG,fr_TN,fr_VU,fr_WF,fr_YT,fur,fur_IT,fy,fy_NL,ga,ga_IE,gd,gd_GB,gl,gl_ES,gsw,gsw_CH,gsw_FR,gsw_LI,gu,gu_IN,guz,guz_KE,gv,gv_GB,gv_IM,ha,ha_Latn,ha_Latn_GH,ha_Latn_NE,ha_Latn_NG,haw,haw_US,he,he_IL,hi,hi_IN,hr,hr_BA,hr_HR,hsb,hsb_DE,hu,hu_HU,hy,hy_AM,id,id_ID,ig,ig_NG,ii,ii_CN,in,in_ID,is,is_IS,it,it_CH,it_IT,it_SM,iu,iu_Cans,iu_Cans_CA,iw,iw_IL,ja,ja_JP,ja_JP_JP,jgo,jgo_CM,jmc,jmc_TZ,ka,ka_GE,kab,kab_DZ,kam,kam_KE,kde,kde_TZ,kea,kea_CV,khq,khq_ML,ki,ki_KE,kk,kk_Cyrl,kk_Cyrl_KZ,kkj,kkj_CM,kl,kl_GL,kln,kln_KE,km,km_KH,kn,kn_IN,ko,ko_KP,ko_KR,kok,kok_IN,ks,ks_Arab,ks_Arab_IN,ksb,ksb_TZ,ksf,ksf_CM,ksh,ksh_DE,kw,kw_GB,ky,ky_Cyrl,ky_Cyrl_KG,lag,lag_TZ,lb,lb_LU,lg,lg_UG,lkt,lkt_US,ln,ln_AO,ln_CD,ln_CF,ln_CG,lo,lo_LA,lt,lt_LT,lu,lu_CD,luo,luo_KE,luy,luy_KE,lv,lv_LV,mas,mas_KE,mas_TZ,mer,mer_KE,mfe,mfe_MU,mg,mg_MG,mgh,mgh_MZ,mgo,mgo_CM,mk,mk_MK,ml,ml_IN,mn,mn_Cyrl,mn_Cyrl_MN,mr,mr_IN,ms,ms_Arab,ms_Arab_BN,ms_Arab_MY,ms_BN,ms_Latn,ms_Latn_BN,ms_Latn_MY,ms_Latn_SG,ms_MY,mt,mt_MT,mua,mua_CM,my,my_MM,naq,naq_NA,nb,nb_NO,nb_SJ,nd,nd_ZW,ne,ne_IN,ne_NP,nl,nl_AW,nl_BE,nl_BQ,nl_CW,nl_NL,nl_SR,nl_SX,nmg,nmg_CM,nn,nn_NO,nnh,nnh_CM,no,no_NO,no_NO_NY,nus,nus_SD,nyn,nyn_UG,om,om_ET,om_KE,or,or_IN,os,os_GE,os_RU,pa,pa_Arab,pa_Arab_PK,pa_Guru,pa_Guru_IN,pa_IN,pl,pl_PL,ps,ps_AF,pt,pt_AO,pt_BR,pt_CV,pt_GW,pt_MO,pt_MZ,pt_PT,pt_ST,pt_TL,qu,qu_BO,qu_EC,qu_PE,rm,rm_CH,rn,rn_BI,ro,ro_MD,ro_RO,rof,rof_TZ,ru,ru_BY,ru_IL,ru_KG,ru_KZ,ru_LT,ru_LV,ru_MD,ru_RU,ru_UA,rw,rw_RW,rwk,rwk_TZ,sah,sah_RU,saq,saq_KE,sbp,sbp_TZ,se,se_FI,se_NO,se_SE,seh,seh_MZ,ses,ses_ML,sg,sg_CF,shi,shi_Latn,shi_Latn_MA,shi_Tfng,shi_Tfng_MA,si,si_LK,sk,sk_SK,sl,sl_SI,smn,smn_FI,sn,sn_ZW,so,so_DJ,so_ET,so_KE,so_SO,sq,sq_AL,sq_MK,sq_XK,sr,sr_BA,sr_CS,sr_Cyrl,sr_Cyrl_BA,sr_Cyrl_ME,sr_Cyrl_RS,sr_Cyrl_XK,sr_Latn,sr_Latn_BA,sr_Latn_ME,sr_Latn_RS,sr_Latn_XK,sr_ME,sr_RS,st_ZA,sv,sv_AX,sv_FI,sv_SE,sw,sw_CD,sw_KE,sw_TZ,sw_UG,swc,swc_CD,ta,ta_IN,ta_LK,ta_MY,ta_SG,te,te_IN,teo,teo_KE,teo_UG,tg,tg_Cyrl,tg_Cyrl_TJ,th,th_TH,ti,ti_ER,ti_ET,tk,tk_Latn,tk_Latn_TM,tl_PH,to,to_TO,tr,tr_CY,tr_TR,twq,twq_NE,tzm,tzm_Latn,tzm_Latn_MA,ug,ug_Arab,ug_Arab_CN,uk,uk_UA,ur,ur_IN,ur_PK,uz,uz_Arab,uz_Arab_AF,uz_Cyrl,uz_Cyrl_UZ,uz_Latn,uz_Latn_UZ,vai,vai_Latn,vai_Latn_LR,vai_Vaii,vai_Vaii_LR,vi,vi_VN,vun,vun_TZ,wae,wae_CH,xh_ZA,xog,xog_UG,yav,yav_CM,yi,yi_001,yo,yo_BJ,yo_NG,zgh,zgh_MA,zh,zh_CN,zh_HK,zh_Hans,zh_Hans_CN,zh_Hans_HK,zh_Hans_MO,zh_Hans_MY,zh_Hans_SG,zh_Hant,zh_Hant_HK,zh_Hant_MO,zh_Hant_TW,zh_MY,zh_SG,zh_TW,zu,zu_ZA"
+    },
+    "emailer": {
+        "key_name": "Cortex Local Emailer",
+        "ip_address": "168.245.99.192",
+        "api_key": "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",
+        "default_from":"noreply@medable.com",
+        "default_from_name":"Medable"
+    },
+    "query": {
+        "documentation": "verboseWarnings should never be on in production as it may leak phi into logs.",
+        "slowQueryThresholdMs": 250,
+        "minTimeMS": 10,
+        "defaultMaxTimeMS": 10000,
+        "maxTimeMS": 30000,
+        "verboseWarnings": false
+    },
+    "contexts" : {
+        "crossOrgQueryable": ["org", "object", "composition"],
+        "defaultLimit": 100,
+        "maxLimit": 1000,
+        "cacheCustom": true,
+        "maxCached": 1000,
+        "debugCache": false
+    },
+    "feeds":{
+        "maxSegments":100,
+        "segmentValueMaxLen":1024,
+        "defaultLimit":1000,
+        "maxLimit":1000,
+        "defaultCommentsLimit":100,
+        "maxCommentsLimit":100,
+        "notifySelf": false
+    },
+    "notifications": {
+        "expiryInSeconds": 2592000,
+        "payloadMaxSize": 65536,
+        "apns": {
+            "key": "",
+            "keyId": "",
+            "teamId": ""
+        }
+    },
+    "_queues": "The list of queues to which we listen. the names are universal, but the underlying names and implementation differ from mq to sqs",
+    "queues": {
+        "swallowNonMedableJobs": false,
+        "uploads": {
+            "sqs": {
+                "mdConnectRetryIntervalSecs": 5,
+                "mdOpRetries": 5,
+                "mdOpRetryIntervalMs": 500,
+                "name": "medable-v2-uploads",
+                "region": "us-east-1",
+                "waitTimeSeconds": 20,
+                "maxNumberOfMessages": 1,
+                "concurrency": 1,
+                "visibilityTimeout": 300
+            },
+            "mq": {
+                "name": "uploads"
+            }
+        },
+        "work": {
+            "sqs": {
+                "mdConnectRetryIntervalSecs": 5,
+                "mdOpRetries": 5,
+                "mdOpRetryIntervalMs": 500,
+                "name": "medable-v2-work",
+                "region": "us-east-1",
+                "waitTimeSeconds": 20,
+                "maxNumberOfMessages": 1,
+                "concurrency": 1,
+                "visibilityTimeout": 300
+            },
+            "mq": {
+                "name": "work"
+            }
+        },
+        "scheduled": {
+            "mq": {
+                "name": "scheduled"
+            }
+        }
+    },
+    "_scheduled": "scheduled jobs",
+    "scheduled": {
+        "instance-reaper": {
+            "worker": "instance-reaper",
+            "cron": "10 * * * *",
+            "priority": -10
+        },
+        "property-reaper": {
+            "worker": "property-reaper",
+            "cron": "20 * * * *",
+            "priority": -10
+        },
+        "stats-rooms": {
+            "worker": "stats-rooms",
+            "cron": "*/10 * * * *"
+        },
+        "history-processor": {
+            "worker": "history-processor",
+            "cron": "*/5 * * * *",
+            "priority": -10
+        },
+        "storage-calculator": {
+            "worker": "storage-calculator",
+            "cron": "0 0 * * *",
+            "reconcile": false,
+            "days": 120
+        },
+        "daily-logins": {
+            "worker": "stats-logins",
+            "cron": "0 0 * * *"
+        },
+        "account-numbers": {
+            "worker": "stats-accounts",
+            "cron": "0 0 * * *"
+        },
+        "script-transaction-reaper": {
+            "worker": "script-transaction-reaper",
+            "cron": "* * * * *"
+        },
+        "export-maintenance": {
+            "worker": "export-maintenance",
+            "cron": "* * * * *"
+        },
+        "transcoder": {
+            "worker": "transcoder",
+            "cron": "* * * * *",
+            "disabled": true
+        }
+    },
+    "caches": {
+        "defaults": {
+            "withEvents": { "$ref": "contexts.debugCache" },
+            "synchronous": true
+        },
+        "ExpansionQueue": {
+            "enabled": true,
+            "shared": true,
+            "maxItems": 100,
+            "withEvents": false
+        },
+        "cortex.audit.requests": {
+            "maxItems": 100,
+            "withEvents": false
+        },
+        "cortex.objects": {
+            "maxItems": 2000
+        },
+        "cortex.oos": {
+            "maxItems": 200
+        },
+        "cortex.envs": {
+            "maxItems": 150
+        },
+        "cortex.sandbox.transpiled": {
+            "maxSize": "50mb"
+        },
+        "cortex.expressions.runtime": {
+            "maxSize": "50mb"
+        },
+        "cortex.expressions.operator$cached": {
+            "maxSize": "10mb",
+            "synchronous": true,
+            "maxItemSize": 8192
+        },
+        "cortex.imports.resources.lookup": {
+            "maxItems": 1000,
+            "withEvents": false,
+            "synchronous": true
+        },
+        "service.transpiler.scripts": {
+            "maxSize": "40mb"
+        },
+        "cortex.sandbox.routers": {
+            "maxSize": "20mb"
+        }
+    },
+    "emailAddresses": {
+      "support": "support@medable.com"
+    },
+    "i18n": {
+        "debug": false
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "nickname": "Provider Verification Processing",
+    "summary": "This is sent to providers that have just updated their provider verification information.",
+    "content": [{
+        "name": "subject",
+        "mime": "text/plain",
+        "summary": "Email subject"
+    },{
+        "name": "plain",
+        "mime": "text/plain",
+        "summary": "Plain text body"
+    },{
+        "name": "html",
+        "mime": "text/html",
+        "summary": "HTML body"
+    }],
+    "variables": [{
+        "name": "org",
+        "type": "object",
+        "paths": ["name"],
+        "summary": "Organization"
+    },{
+        "name": "account",
+        "type": "object",
+        "paths": ["name"],
+        "summary": "Account"
+    }]
+}

@@ -1,0 +1,8 @@
+Deployment:
+  host: api.medable.cn
+  replicas: 20
+
+HorizontalPodAutoscaler:
+  minReplicas: 6
+  maxReplicas: 20
+  targetCPUUtilizationPercentage: 75

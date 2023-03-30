@@ -1,0 +1,12 @@
+{
+    "content": [{
+        "name": "subject",
+        "data": "Please complete your {{{org.name}}} signup"
+    }, {
+        "name": "plain",
+        "data": "Hi {{{account.name.first}}},\n\nYou're one step away from completing your {{{org.name}}} signup.\n\nFollow the link below to activate your account and confirm your email address:\n\n{{{activation.url}}}"
+    }, {
+        "name": "html",
+        "include": "html/account-activation-provider.html"
+    }]
+}

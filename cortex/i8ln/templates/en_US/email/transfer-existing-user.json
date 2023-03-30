@@ -1,0 +1,12 @@
+{
+    "content": [{
+        "name": "subject",
+        "data": "A {{{i18n transfer.context.object}}} has been transferred to you at {{{org.name}}}"
+    }, {
+        "name": "plain",
+        "data": "Hi {{{account.name.first}}},\n\n A {{{i18n transfer.context.object}}} has been transferred to you. To accept, go to {{transfer.url}}"
+    }, {
+        "name": "html",
+        "include": "html/transfer-existing-user.html"
+    }]
+}

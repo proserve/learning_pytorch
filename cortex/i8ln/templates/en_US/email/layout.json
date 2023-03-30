@@ -1,0 +1,6 @@
+{
+    "content": [{
+        "name": "html",
+        "include": "html/layout.html"
+    }]
+}

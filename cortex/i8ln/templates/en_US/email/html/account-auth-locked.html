@@ -1,0 +1,14 @@
+{{#extend "layout"}}
+
+    {{#replace "title"}}
+        Your {{org.name}} account has been locked!
+    {{/replace}}
+
+    {{#replace "body"}}
+        Hi {{account.name.first}},<br/><br/>
+
+        Your account has been locked due to {{attempts}} consecutive sign-in failure(s). <br/><br/>
+
+        Your account will be locked {{#if duration}}for the next {{duration}}{{/if}}{{#unless duration}}indefinitely{{/unless}}.
+    {{/replace}}
+{{/extend}}

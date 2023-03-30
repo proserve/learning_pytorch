@@ -1,0 +1,12 @@
+{
+    "content": [{
+        "name": "subject",
+        "data": "You've been invited to connect at {{{org.name}}}"
+    }, {
+        "name": "plain",
+        "data": "Hi {{{account.name.first}}},\n\n You've been invited to connect at {{{org.name}}}! To accept, go to {{{connection.url}}}"
+    }, {
+        "name": "html",
+        "include": "html/invite-existing-user.html"
+    }]
+}

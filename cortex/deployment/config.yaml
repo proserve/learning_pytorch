@@ -1,0 +1,18 @@
+projectName: cortex-api
+
+withBuildKit: true
+
+nodeJsVersion: 14.17.6
+
+# the deployment requires the node pool selector because the cluster has multiple node pools that serve cerebrum workloads
+Deployment:
+  nodePool: "api-pool"
+  apparmor: unconfined
+
+HorizontalPodAutoscaler:
+  minReplicas: 1
+  maxReplicas: 1
+  targetCPUUtilizationPercentage: 100
+
+NetworkPolicy:
+  egressIpBlocks: [ { cidr: 0.0.0.0/0 } ]

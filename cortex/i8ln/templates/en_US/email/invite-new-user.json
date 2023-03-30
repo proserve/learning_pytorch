@@ -1,0 +1,12 @@
+{
+    "content": [{
+        "name": "subject",
+        "data": "You've been invited to join {{{org.name}}}"
+    }, {
+        "name": "plain",
+        "data": "You've been invited to join {{{org.name}}}! To sign up, go to {{{connection.url}}}"
+    }, {
+        "name": "html",
+        "include": "html/invite-new-user.html"
+    }]
+}

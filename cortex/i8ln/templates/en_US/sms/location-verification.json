@@ -1,0 +1,6 @@
+{
+    "content": [{
+        "name": "message",
+        "data": "Your {{{org.name}}} verification code is {{{code}}}"
+    }]
+}

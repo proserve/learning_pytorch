@@ -1,0 +1,6 @@
+{
+    "content": [{
+        "name": "message",
+        "data": "{{{fullname transfer.creator.name}}} wants you to take the reigns at {{{org.name}}}"
+    }]
+}

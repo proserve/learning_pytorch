@@ -1,0 +1,13 @@
+gcpProject: medable-internal
+gcpCluster: cortex-test
+
+tagSet: 2.9.9-\d+
+
+Deployment:
+  host: api.test.medable.com
+  replicas: 20
+
+HorizontalPodAutoscaler:
+  minReplicas: 20
+  maxReplicas: 40
+  targetCPUUtilizationPercentage: 75
